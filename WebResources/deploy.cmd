@@ -1,0 +1,1 @@
+..\Kipon.WebResources.Tools\bin\Debug\Kipon.WebResources.Tools.exe deploy "/user:deploy" "/password:#!dWWk56(<ahjDeQ" "/url:http://kipon-dev/kip/XRMServices/2011/Organization.svc" "/prefix:kipon" "/solution:WR"

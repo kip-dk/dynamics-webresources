@@ -1,0 +1,6 @@
+﻿<filter>
+  <entities>
+    <entity servicename="Solutions">solution</entity>
+    <entity servicename="Solutioncomponents">solutioncomponent</entity>
+  </entities>
+</filter>

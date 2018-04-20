@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2027
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebResources", "WebResources\WebResources.csproj", "{8F35C923-B862-4358-87BC-5AB8D3D5B240}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kipon.WebResources.Tools", "Kipon.WebResources.Tools\Kipon.WebResources.Tools.csproj", "{F71B4642-5096-4CC4-9226-F083DDE01873}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8F35C923-B862-4358-87BC-5AB8D3D5B240}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F35C923-B862-4358-87BC-5AB8D3D5B240}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F35C923-B862-4358-87BC-5AB8D3D5B240}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F35C923-B862-4358-87BC-5AB8D3D5B240}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F71B4642-5096-4CC4-9226-F083DDE01873}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F71B4642-5096-4CC4-9226-F083DDE01873}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F71B4642-5096-4CC4-9226-F083DDE01873}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F71B4642-5096-4CC4-9226-F083DDE01873}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A6D8B183-23D6-4118-9501-67F7B9B6A4EC}
+	EndGlobalSection
+EndGlobal

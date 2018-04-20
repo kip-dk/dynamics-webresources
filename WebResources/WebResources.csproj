@@ -1,0 +1,51 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Scripts\ContactForm.ts" />
+    <None Remove="Scripts\demo\AccountForm.ts" />
+    <None Remove="Scripts\demo\SpecialName.ts" />
+    <None Remove="Scripts\tools\webapi.service.ts" />
+    <None Remove="Scripts\typings\xrm.d.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="HTML\" />
+    <Folder Include="CSS\" />
+    <Folder Include="Icons\" />
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="Scripts\ContactForm.ts" />
+    <TypeScriptCompile Include="Scripts\demo\AccountForm.ts" />
+    <TypeScriptCompile Include="Scripts\demo\SpecialName.ts" />
+    <TypeScriptCompile Include="Scripts\tools\webapi.service.ts" />
+    <TypeScriptCompile Include="Scripts\typings\xrm.d.ts" />
+  </ItemGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
+    <TypeScriptModuleKind />
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
+    <TypeScriptOutFile />
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>True</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
+  </PropertyGroup>
+
+</Project>
