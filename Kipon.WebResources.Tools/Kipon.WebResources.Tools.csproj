@@ -89,6 +89,9 @@
     <Compile Include="Extensions\String\StringMethods.cs" />
     <Compile Include="Deploy\Merge.cs" />
     <Compile Include="Generator\Command.cs" />
+    <Compile Include="Generator\Config\forms.cs" />
+    <Compile Include="Generator\Config\forms.design.cs" />
+    <Compile Include="Generator\Xrm\form.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Deploy\ResourceTypeEnum.cs" />
@@ -100,6 +103,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="Data\AccountForm.xml" />
     <Content Include="Entities\filter.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

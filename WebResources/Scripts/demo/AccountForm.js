@@ -15,7 +15,7 @@ var Kipon;
             var lo = form.getAttribute("primarycontactid");
             var t = form.ui.tabs.get("known").sections.get("alsoknown");
             var pc = form.getAttribute("primarycontactid");
-            form.ui.controls.get("knowncontrol").getControlType;
+            form.ui.controls.get("primarycontactid").getControlType;
             var ot = form.getAttribute("xx");
             ctx.getFormContext().getAttribute("primarycontactid").getValue();
             var s = new Kipon.Webapi.Service();

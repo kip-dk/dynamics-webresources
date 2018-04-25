@@ -15,7 +15,7 @@ declare namespace XrmForm {
     }
 
     interface AccountFormUIControls  {
-        get(name: "knowncontrol"): Xrm.Controls.Control;
+        get(name: "primarycontactid"): Xrm.Controls.LookupControl;
         get(name: string): void;
     }
 

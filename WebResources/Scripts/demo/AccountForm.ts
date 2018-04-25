@@ -18,7 +18,7 @@ module Kipon.Account {
 
         let pc = form.getAttribute("primarycontactid");
 
-        form.ui.controls.get("knowncontrol").getControlType;
+        form.ui.controls.get("primarycontactid").getControlType;
 
         var ot = form.getAttribute("xx");
 
