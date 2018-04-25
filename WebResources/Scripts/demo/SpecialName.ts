@@ -1,6 +1,6 @@
 ﻿//deploy: kipon_/some/deep/path/special.js
 
-module Spec {
+module Demo.Spec {
     export class Some {
         id: string;
     }

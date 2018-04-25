@@ -1,6 +1,6 @@
 ﻿//merge: always
 
-module Kipon.Webapi {
+module XKipon.Webapi {
 
     interface ICallback<T> {
         (t: T): void;

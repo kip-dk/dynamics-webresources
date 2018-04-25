@@ -1,30 +1,30 @@
-//#include tools/webapi.service.js
-var Kipon;
-(function (Kipon) {
+//#include tools/kipon.xrmservice.js
+var Demo;
+(function (Demo) {
     var Account;
     (function (Account) {
-        var Contact = /** @class */ (function () {
-            function Contact() {
+        class Contact extends Kipon.Entity {
+            constructor() {
+                super("contacts", "contactid");
+                this.fullname = null;
             }
-            return Contact;
-        }());
+        }
         Account.Contact = Contact;
+        let contactPrototype = new Contact();
         function loadForm(ctx) {
-            console.log(ctx);
-            var form = ctx.getFormContext();
-            var lo = form.getAttribute("primarycontactid");
-            var t = form.ui.tabs.get("known").sections.get("alsoknown");
-            var pc = form.getAttribute("primarycontactid");
-            form.ui.controls.get("primarycontactid").getControlType;
-            var ot = form.getAttribute("xx");
-            ctx.getFormContext().getAttribute("primarycontactid").getValue();
-            var s = new Kipon.Webapi.Service();
-            s.get("contacts", "")
-                .subscribe(function (r) { })
-                .catch(function (m) { return console.log(m); });
+            let form = ctx.getFormContext();
+            let lo = form.getAttribute("primarycontactid");
+            var val = lo.getValue();
+            if (val != null && val.length > 0) {
+                let s = new Kipon.XrmService();
+                s.get(contactPrototype, val[0].id)
+                    .subscribe(r => {
+                    console.log(r);
+                });
+            }
         }
         function onsave(ctx) {
         }
-    })(Account = Kipon.Account || (Kipon.Account = {}));
-})(Kipon || (Kipon = {}));
+    })(Account = Demo.Account || (Demo.Account = {}));
+})(Demo || (Demo = {}));
 //# sourceMappingURL=AccountForm.js.map

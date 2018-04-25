@@ -1,35 +1,30 @@
-﻿//#include tools/webapi.service.js
+﻿//#include tools/kipon.xrmservice.js
 
-module Kipon.Account {
-    export class Contact {
-        contactid: string;
-        fullname: string;
+module Demo.Account {
+    export class Contact extends Kipon.Entity {
+        constructor() {
+            super("contacts", "contactid")
+        }
+        fullname: string = null;
     }
 
-    function loadForm(ctx: Xrm.Events.EventContext): void {
-        console.log(ctx);
+    let contactPrototype: Contact = new Contact();
 
+    function loadForm(ctx: Xrm.Events.EventContext): void {
         let form = ctx.getFormContext() as XrmForm.AccountForm;
 
         let lo = form.getAttribute("primarycontactid");
 
+        var val = lo.getValue();
 
-        let t = form.ui.tabs.get("known").sections.get("alsoknown");
+        if (val != null && val.length > 0) {
+            let s = new Kipon.XrmService();
 
-        let pc = form.getAttribute("primarycontactid");
-
-        form.ui.controls.get("primarycontactid").getControlType;
-
-        var ot = form.getAttribute("xx");
-
-        ctx.getFormContext().getAttribute("primarycontactid").getValue();
-
-        let s = new Kipon.Webapi.Service();
-
-        s.get<Contact>("contacts", "")
-            .subscribe(r => { })
-            .catch(m => console.log(m));
-
+            s.get<Contact>(contactPrototype, val[0].id)
+                .subscribe(r => {
+                    console.log(r);
+                });
+        }
     }
 
     function onsave(ctx: Xrm.Events.EventContext): void {
