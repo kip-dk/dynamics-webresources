@@ -11,11 +11,18 @@ var Kipon;
         Account.Contact = Contact;
         function loadForm(ctx) {
             console.log(ctx);
+            var form = ctx.getFormContext();
+            var t = form.ui.tabs.get("known").sections.get("alsoknown");
+            var pc = form.getAttribute("primarycontactid");
+            form.ui.controls.get("knowncontrol").getControlType;
+            var ot = form.getAttribute("xx");
             ctx.getFormContext().getAttribute("primarycontactid").getValue();
             var s = new Kipon.Webapi.Service();
             s.get("contacts", "")
                 .subscribe(function (r) { })
                 .catch(function (m) { return console.log(m); });
+        }
+        function onsave(ctx) {
         }
     })(Account = Kipon.Account || (Kipon.Account = {}));
 })(Kipon || (Kipon = {}));

@@ -10,7 +10,9 @@
     <None Remove="Scripts\demo\AccountForm.ts" />
     <None Remove="Scripts\demo\SpecialName.ts" />
     <None Remove="Scripts\tools\webapi.service.ts" />
+    <None Remove="Scripts\typings\forms.d.ts" />
     <None Remove="Scripts\typings\xrm.d.ts" />
+    <None Remove="Scripts\typings\xrm.forms.d.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,7 +31,9 @@
     <TypeScriptCompile Include="Scripts\demo\AccountForm.ts" />
     <TypeScriptCompile Include="Scripts\demo\SpecialName.ts" />
     <TypeScriptCompile Include="Scripts\tools\webapi.service.ts" />
+    <TypeScriptCompile Include="Scripts\typings\forms.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\xrm.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\xrm.forms.d.ts" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">

@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<forms>
+  <form entity="account" name="Account" as="AccountForm">
+    <event type="onload" ctx="true">Kipon.Account.formLoad</event>
+    <event type="onchange" field="primarycontactid" ctx="false"></event>
+    <event type="onsave" ctx="false"></event>
+  </form>
+</forms>

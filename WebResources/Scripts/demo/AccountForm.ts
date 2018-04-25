@@ -9,6 +9,16 @@ module Kipon.Account {
     function loadForm(ctx: Xrm.Events.EventContext): void {
         console.log(ctx);
 
+        let form = ctx.getFormContext() as XrmForm.AccountForm;
+
+        let t = form.ui.tabs.get("known").sections.get("alsoknown");
+
+        let pc = form.getAttribute("primarycontactid");
+
+        form.ui.controls.get("knowncontrol").getControlType;
+
+        var ot = form.getAttribute("xx");
+
         ctx.getFormContext().getAttribute("primarycontactid").getValue();
 
         let s = new Kipon.Webapi.Service();
@@ -16,5 +26,10 @@ module Kipon.Account {
         s.get<Contact>("contacts", "")
             .subscribe(r => { })
             .catch(m => console.log(m));
+
+    }
+
+    function onsave(ctx: Xrm.Events.EventContext): void {
+
     }
  }

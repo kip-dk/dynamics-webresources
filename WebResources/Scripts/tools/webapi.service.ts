@@ -30,8 +30,9 @@ module Kipon.Webapi {
             if (v != null && v != '') {
                 let s = v.split('.');
                 this.version = 'v' + s[0] + '.' + s[1];
+            } else {
+                this.version = 'v8.0';
             }
-            this.version = 'v8.0';
         }
 
         get<T>(pluralname, id: string): Promise<T>

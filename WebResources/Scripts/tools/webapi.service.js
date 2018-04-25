@@ -27,7 +27,9 @@ var Kipon;
                     var s = v.split('.');
                     this.version = 'v' + s[0] + '.' + s[1];
                 }
-                this.version = 'v8.0';
+                else {
+                    this.version = 'v8.0';
+                }
             }
             Service.prototype.get = function (pluralname, id, fields) {
                 var _this = this;
