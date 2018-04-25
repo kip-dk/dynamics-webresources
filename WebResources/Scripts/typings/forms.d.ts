@@ -1,35 +1,35 @@
 ﻿
 declare namespace XrmForm {
-    interface AccountForm extends Xrm.FormContext {
-        getAttribute(name: "primarycontactid"): XrmForm.AttributeLookup;
-        getControl(name: "primarycontactid"): XrmForm.LookupControl;
-
-        getAttribute(name: string): XrmForm.AttributeEmpty;
+    interface AccountForm  {
+        getAttribute(name: "primarycontactid"): Xrm.Attributes.LookupAttribute;
+        getControl(name: "primarycontactid"): Xrm.Controls.LookupControl;
+        getAttribute(name: string): void;
+        getControl(name: string): void;
 
         ui: AccountFormUI;
     }
 
-    interface AccountFormUI extends Xrm.Ui {
+    interface AccountFormUI {
         controls: AccountFormUIControls;
         tabs: AccountFormUITabs;
     }
 
-    interface AccountFormUIControls extends Xrm.Collection.ItemCollection<Xrm.Controls.Control> {
+    interface AccountFormUIControls  {
         get(name: "knowncontrol"): Xrm.Controls.Control;
         get(name: string): void;
     }
 
 
-    interface AccountFormUITabs extends Xrm.Collection.ItemCollection<Xrm.Controls.Tab> {
+    interface AccountFormUITabs  {
         get(name: "known"): AccountFormUITabX;
         get(name: string): void;
     }
 
-    interface AccountFormUITabX extends Xrm.Controls.Tab {
+    interface AccountFormUITabX {
         sections: AccountFormUITabXSections;
     }
 
-    interface AccountFormUITabXSections extends Xrm.Collection.ItemCollection<Xrm.Controls.Section> {
+    interface AccountFormUITabXSections {
         get(name: "alsoknown"): Xrm.Controls.Section;
         get(name: string): void;
     }

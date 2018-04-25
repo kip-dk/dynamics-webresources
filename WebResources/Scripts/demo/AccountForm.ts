@@ -11,6 +11,9 @@ module Kipon.Account {
 
         let form = ctx.getFormContext() as XrmForm.AccountForm;
 
+        let lo = form.getAttribute("primarycontactid");
+
+
         let t = form.ui.tabs.get("known").sections.get("alsoknown");
 
         let pc = form.getAttribute("primarycontactid");

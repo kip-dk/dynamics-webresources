@@ -12,6 +12,7 @@ var Kipon;
         function loadForm(ctx) {
             console.log(ctx);
             var form = ctx.getFormContext();
+            var lo = form.getAttribute("primarycontactid");
             var t = form.ui.tabs.get("known").sections.get("alsoknown");
             var pc = form.getAttribute("primarycontactid");
             form.ui.controls.get("knowncontrol").getControlType;
