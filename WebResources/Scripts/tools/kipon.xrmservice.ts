@@ -1,4 +1,4 @@
-﻿//#include tools/polyfill.js
+﻿//merge: always
 
 module Kipon {
     interface ICallback<T> {
@@ -36,7 +36,14 @@ module Kipon {
         ver: string;
 
         constructor() {
-            this.ctx = Xrm.Utility.getGlobalContext();
+            if (Xrm.Utility != null && Xrm.Utility.getGlobalContext != null) {
+                this.ctx = Xrm.Utility.getGlobalContext();
+            } 
+
+            if (this.ctx == null) {
+                this.ctx = window["Xrm"]["Page"]["context"] as Xrm.GlobalContext;
+            }
+
             let ve = this.ctx.getVersion();
             if (ve != null && ve.length == 0) {
                 let v = ve.split('.');
@@ -47,7 +54,7 @@ module Kipon {
         }
 
         clientUrl(): string {
-            return this.ctx.getClientUrl() + '/api/data' + this.ver + '/';
+            return this.ctx.getClientUrl() + '/api/data/' + this.ver + '/';
         }
 
         get<T>(url: string): Observable<T>;
@@ -559,8 +566,10 @@ module Kipon {
                 expand = this.$expandToExpand(ep);
             }
 
+            let _ex = this.expandString(expand, "&");
+
             let _id = this.toGuid(id);
-            let url = prototype._pluralName + "(" + _id + ")" + columnDef.columns + expand;
+            let url = prototype._pluralName + "(" + _id + ")?$select=" + columnDef.columns + _ex;
 
             return this.http.get<T>(url).map(r => {
                 return me.resolve<T>(prototype, r, prototype._updateable);
@@ -1085,6 +1094,24 @@ module Kipon {
             return v.substr(0, 8) + '-' + v.substr(8, 4) + '-' + v.substr(12, 4) + '-' + v.substr(16, 4) + '-' + v.substr(20);
         }
 
+        private expandString(expand: Expand, sep: string): string {
+            if (expand == null || expand.name == null || expand.name == '') return '';
 
+            let _ex = sep + '$expand=' + expand.name;
+            if (expand.select != null || expand.filter != null) {
+                _ex += '(';
+                let semi = '';
+                if (expand.select != null) {
+                    _ex += '$select=' + expand.select;
+                    semi = ';'
+                }
+                if (expand.filter != null) {
+                    _ex += semi + '$filter=' + expand.filter;
+                }
+
+                _ex += ')';
+            }
+            return _ex;
+        }
     }
 }

@@ -7,10 +7,15 @@
 
   <ItemGroup>
     <None Remove="Scripts\ContactForm.ts" />
+    <None Remove="Scripts\demo\AccountForm.js" />
+    <None Remove="Scripts\demo\AccountForm.js.map" />
     <None Remove="Scripts\demo\AccountForm.ts" />
+    <None Remove="Scripts\demo\SpecialName.js" />
+    <None Remove="Scripts\demo\SpecialName.js.map" />
     <None Remove="Scripts\demo\SpecialName.ts" />
+    <None Remove="Scripts\tools\kipon.xrmservice.js" />
+    <None Remove="Scripts\tools\kipon.xrmservice.js.map" />
     <None Remove="Scripts\tools\kipon.xrmservice.ts" />
-    <None Remove="Scripts\tools\webapi.service.ts" />
     <None Remove="Scripts\typings\forms.d.ts" />
     <None Remove="Scripts\typings\xrm.d.ts" />
   </ItemGroup>
@@ -31,7 +36,6 @@
     <TypeScriptCompile Include="Scripts\demo\AccountForm.ts" />
     <TypeScriptCompile Include="Scripts\demo\SpecialName.ts" />
     <TypeScriptCompile Include="Scripts\tools\kipon.xrmservice.ts" />
-    <TypeScriptCompile Include="Scripts\tools\webapi.service.ts" />
     <TypeScriptCompile Include="Scripts\typings\forms.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\xrm.d.ts" />
   </ItemGroup>

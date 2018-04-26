@@ -1,4 +1,3 @@
-// import: tools/webapi.service.ts
 var Kipon;
 (function (Kipon) {
     var Contact;

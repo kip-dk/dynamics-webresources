@@ -1,3 +1,4 @@
+//#include tools/polyfill.js
 //#include tools/kipon.xrmservice.js
 var Demo;
 (function (Demo) {
@@ -23,8 +24,7 @@ var Demo;
                 });
             }
         }
-        function onsave(ctx) {
-        }
+        Account.loadForm = loadForm;
     })(Account = Demo.Account || (Demo.Account = {}));
 })(Demo || (Demo = {}));
 //# sourceMappingURL=AccountForm.js.map

@@ -1,4 +1,5 @@
-﻿//#include tools/kipon.xrmservice.js
+﻿//#include tools/polyfill.js
+//#include tools/kipon.xrmservice.js
 
 module Demo.Account {
     export class Contact extends Kipon.Entity {
@@ -10,7 +11,7 @@ module Demo.Account {
 
     let contactPrototype: Contact = new Contact();
 
-    function loadForm(ctx: Xrm.Events.EventContext): void {
+    export function loadForm(ctx: Xrm.Events.EventContext): void {
         let form = ctx.getFormContext() as XrmForm.AccountForm;
 
         let lo = form.getAttribute("primarycontactid");
@@ -26,8 +27,4 @@ module Demo.Account {
                 });
         }
     }
-
-    function onsave(ctx: Xrm.Events.EventContext): void {
-
-    }
- }
+}
