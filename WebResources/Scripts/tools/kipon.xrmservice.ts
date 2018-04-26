@@ -625,8 +625,49 @@ module Kipon {
             });
         }
 
+        create<T extends Entity>(prototype: T, instance: T): Observable<T> {
+            let newr = this.prepareNewInstance(prototype, instance);
 
+            if (this.debug) {
+                console.log(newr);
+            }
 
+            return this.http.post<T>(prototype._pluralName, newr).map(response => {
+                if (this.debug) {
+                    console.log(response);
+                }
+
+                if (response != null) {
+                    if (response.hasOwnProperty('$keyonly')) {
+                        response._pluralName = prototype._pluralName;
+                        response._keyName = prototype._keyName;
+                        response._updateable = false;
+
+                        let key = response._pluralName + ':' + response.id;
+                        for (let prop in prototype) {
+                            if (typeof prototype[prop] === 'function') {
+                                response[prop] = prototype[prop];
+                                continue;
+                            }
+
+                            if (prototype.hasOwnProperty(prop)) {
+                                if (this.ignoreColumn(prop)) continue;
+
+                                let value = instance[prop];
+                                if (value !== 'undefined' && value !== null) {
+                                    response[prop] = value;
+                                }
+                            }
+                        }
+                        this.context[key] = response;
+                        return response;
+                    } else {
+                        return this.resolve(prototype, response, true);
+                    }
+                }
+                return null;
+            });
+        }
 
         private prepareUpdate(prototype: Entity, instance: Entity): any {
             let me = this;
