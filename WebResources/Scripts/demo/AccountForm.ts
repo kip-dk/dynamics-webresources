@@ -7,6 +7,7 @@ module Demo.Account {
             super("contacts", "contactid")
         }
         fullname: string = null;
+        parentcustomerid: Kipon.EntityReference = new Kipon.EntityReference().meta("accounts", "parentcustomerid_account");
     }
 
     let contactPrototype: Contact = new Contact();
@@ -18,13 +19,28 @@ module Demo.Account {
 
         var val = lo.getValue();
 
+        let s = new Kipon.XrmService();
+
+        /*
         if (val != null && val.length > 0) {
-            let s = new Kipon.XrmService();
 
             s.get<Contact>(contactPrototype, val[0].id)
                 .subscribe(r => {
-                    console.log(r);
+                    // console.log(r);
                 });
         }
+        */
+
+        let con = new Kipon.Condition()
+            .where("parentcustomerid", Kipon.Comparator.Equals, ctx.getFormContext().data.entity.getId());
+
+        s.query(contactPrototype, con).subscribe(r => {
+            if (r.value != null) {
+                r.value.forEach(c => {
+                    console.log(c);
+                });
+            }
+        });
+
     }
 }

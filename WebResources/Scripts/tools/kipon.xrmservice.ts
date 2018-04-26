@@ -576,6 +576,57 @@ module Kipon {
             });
         }
 
+        query<T extends Entity>(prototype: T, condition: Condition): Observable<XrmQueryResult<T>>;
+        query<T extends Entity>(prototype: T, condition: Condition, orderBy: string): Observable<XrmQueryResult<T>>;
+        query<T extends Entity>(prototype: T, condition: Condition, orderBy: string, top: number): Observable<XrmQueryResult<T>>;
+        query<T extends Entity>(prototype: T, condition: Condition, orderBy: string, top: number, count: boolean): Observable<XrmQueryResult<T>>;
+        query<T extends Entity>(prototype: T, condition: Condition, orderBy: string = null, top: number = 0, count: boolean = false): Observable<XrmQueryResult<T>> {
+            let me = this;
+            let fields = this.columnBuilder(prototype).columns;
+
+            let con = condition;
+            while (con.parent != null) con = con.parent;
+
+            let filter = con.toQueryString(prototype);
+
+            let url = prototype._pluralName;
+            if ((fields != null && fields != '') || (filter != null && filter != '') || (orderBy != null && orderBy != '') || top > 0) {
+                url += "?";
+            }
+            let sep = '';
+
+            if (fields != null && fields != '') {
+                url += '$select=' + fields;
+                sep = '&';
+            }
+
+            if (filter != null && filter != '') {
+                url += sep + '$filter=' + filter;
+                sep = '&';
+            }
+
+            if (orderBy != null && orderBy != '') {
+                url += sep + '$orderby=' + orderBy;
+                sep = '&';
+            }
+
+            if (count) {
+                url += sep + '$count=true';
+                sep = '&';
+            }
+
+            if (this.debug) console.log(url);
+
+            let pu = this.http.clientUrl() + url;
+
+            return this.http.get(url).map(response => {
+                let result = me.resolveQueryResult<T>(prototype, response, top, [pu], 0);
+                return result;
+            });
+        }
+
+
+
 
         private prepareUpdate(prototype: Entity, instance: Entity): any {
             let me = this;

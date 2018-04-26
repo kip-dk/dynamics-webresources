@@ -447,6 +447,42 @@ var Kipon;
                 return me.resolve(prototype, r, prototype._updateable);
             });
         }
+        query(prototype, condition, orderBy = null, top = 0, count = false) {
+            let me = this;
+            let fields = this.columnBuilder(prototype).columns;
+            let con = condition;
+            while (con.parent != null)
+                con = con.parent;
+            let filter = con.toQueryString(prototype);
+            let url = prototype._pluralName;
+            if ((fields != null && fields != '') || (filter != null && filter != '') || (orderBy != null && orderBy != '') || top > 0) {
+                url += "?";
+            }
+            let sep = '';
+            if (fields != null && fields != '') {
+                url += '$select=' + fields;
+                sep = '&';
+            }
+            if (filter != null && filter != '') {
+                url += sep + '$filter=' + filter;
+                sep = '&';
+            }
+            if (orderBy != null && orderBy != '') {
+                url += sep + '$orderby=' + orderBy;
+                sep = '&';
+            }
+            if (count) {
+                url += sep + '$count=true';
+                sep = '&';
+            }
+            if (this.debug)
+                console.log(url);
+            let pu = this.http.clientUrl() + url;
+            return this.http.get(url).map(response => {
+                let result = me.resolveQueryResult(prototype, response, top, [pu], 0);
+                return result;
+            });
+        }
         prepareUpdate(prototype, instance) {
             let me = this;
             let upd = {};
