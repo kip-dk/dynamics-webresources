@@ -25,7 +25,12 @@ namespace Kipon.WebResources.Tools
             {
                 case "deploy":
                     {
-                        Kipon.WebResources.Tools.Deploy.Command.Run(args);
+                        Kipon.WebResources.Tools.Deploy.Command.Run(args.Skip(1).ToArray());
+                        break;
+                    }
+                case "generate":
+                    {
+                        Kipon.WebResources.Tools.Generator.Command.Run(args.Skip(1).ToArray());
                         break;
                     }
                 default:

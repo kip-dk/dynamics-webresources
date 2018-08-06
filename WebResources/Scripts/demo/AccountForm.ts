@@ -17,6 +17,10 @@ module Demo.Account {
 
         let lo = form.getAttribute("primarycontactid");
 
+
+
+        form.getControl("primarycontactid").addPreSearch(Demo.Account.doSearch);
+
         var val = lo.getValue();
 
         let s = new Kipon.XrmService();
@@ -41,6 +45,8 @@ module Demo.Account {
                 });
             }
         });
+    }
 
+    export function doSearch(ctx: Xrm.Events.EventContext): void {
     }
 }

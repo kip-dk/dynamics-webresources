@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kipon.Dynamics.Plugin.Entities
+namespace Kipon.WebResources.Tools.Entities
 {
     /// <summary>
     /// Implementation of the <see cref="Larsen.Xrm.Entities.IRepository{T}"/> using the against a CRM context.

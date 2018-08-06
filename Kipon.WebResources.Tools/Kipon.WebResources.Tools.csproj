@@ -88,6 +88,7 @@
     <Compile Include="Entities\IUnitOfWork.Design.cs" />
     <Compile Include="Extensions\String\StringMethods.cs" />
     <Compile Include="Deploy\Merge.cs" />
+    <Compile Include="Generator\CodeWriter.cs" />
     <Compile Include="Generator\Command.cs" />
     <Compile Include="Generator\Config\forms.cs" />
     <Compile Include="Generator\Config\forms.design.cs" />
@@ -99,6 +100,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Entities\generate.cmd" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />

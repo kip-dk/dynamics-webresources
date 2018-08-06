@@ -14,21 +14,14 @@ namespace Kipon.WebResources.Tools.Deploy
     {
         public static void Run(string[] args)
         {
-            if (args == null || args.Length == 0)
+            try
             {
-                Console.WriteLine("Usage: Kipon.WebResources.Tools [deploy | generate] /url:url /user:user /password:password /prefix:prefix /solution:solution");
-                return;
-            }
+                var url = args.GetParameter("url", true);
+                var prefix = args.GetParameter("prefix", true);
+                var solution = args.GetParameter("solution", false);
 
-            var url = args.GetParameter("url", true);
-            var prefix = args.GetParameter("prefix", true);
-            var solution = args.GetParameter("solution", false);
+                IOrganizationService service = Kipon.WebResources.Tools.Service.Factory.GetOrganizationService(args);
 
-
-            IOrganizationService service = Kipon.WebResources.Tools.Service.Factory.GetOrganizationService(args);
-
-            if (args[0] == "deploy")
-            {
                 Console.WriteLine("Deploy scripts to: " + url);
 
                 var path = @"Scripts\";
@@ -49,6 +42,11 @@ namespace Kipon.WebResources.Tools.Deploy
 
                 Console.WriteLine("Uploade done - press [ENTER]");
                 Console.ReadLine();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+                Console.WriteLine("Usage: Kipon.WebResources.Tools deploy /url:url /user:user /password:password /prefix:prefix /solution:solution");
             }
         }
 

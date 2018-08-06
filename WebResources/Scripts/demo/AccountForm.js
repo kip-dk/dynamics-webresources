@@ -16,6 +16,7 @@ var Demo;
         function loadForm(ctx) {
             let form = ctx.getFormContext();
             let lo = form.getAttribute("primarycontactid");
+            form.getControl("primarycontactid").addPreSearch(Demo.Account.doSearch);
             var val = lo.getValue();
             let s = new Kipon.XrmService();
             /*
@@ -38,6 +39,9 @@ var Demo;
             });
         }
         Account.loadForm = loadForm;
+        function doSearch(ctx) {
+        }
+        Account.doSearch = doSearch;
     })(Account = Demo.Account || (Demo.Account = {}));
 })(Demo || (Demo = {}));
 //# sourceMappingURL=AccountForm.js.map

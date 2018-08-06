@@ -10,7 +10,7 @@
 
 [assembly: Microsoft.Xrm.Sdk.Client.ProxyTypesAssemblyAttribute()]
 
-namespace Kipon.Dynamics.Plugin.Entities
+namespace Kipon.WebResources.Tools.Entities
 {
 	
 	
@@ -434,16 +434,16 @@ namespace Kipon.Dynamics.Plugin.Entities
 		/// 1:N solution_parent_solution
 		/// </summary>
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("solution_parent_solution", Microsoft.Xrm.Sdk.EntityRole.Referenced)]
-		public System.Collections.Generic.IEnumerable<Kipon.Dynamics.Plugin.Entities.Solution> Referencedsolution_parent_solution
+		public System.Collections.Generic.IEnumerable<Kipon.WebResources.Tools.Entities.Solution> Referencedsolution_parent_solution
 		{
 			get
 			{
-				return this.GetRelatedEntities<Kipon.Dynamics.Plugin.Entities.Solution>("solution_parent_solution", Microsoft.Xrm.Sdk.EntityRole.Referenced);
+				return this.GetRelatedEntities<Kipon.WebResources.Tools.Entities.Solution>("solution_parent_solution", Microsoft.Xrm.Sdk.EntityRole.Referenced);
 			}
 			set
 			{
 				this.OnPropertyChanging("Referencedsolution_parent_solution");
-				this.SetRelatedEntities<Kipon.Dynamics.Plugin.Entities.Solution>("solution_parent_solution", Microsoft.Xrm.Sdk.EntityRole.Referenced, value);
+				this.SetRelatedEntities<Kipon.WebResources.Tools.Entities.Solution>("solution_parent_solution", Microsoft.Xrm.Sdk.EntityRole.Referenced, value);
 				this.OnPropertyChanged("Referencedsolution_parent_solution");
 			}
 		}
@@ -452,16 +452,16 @@ namespace Kipon.Dynamics.Plugin.Entities
 		/// 1:N solution_solutioncomponent
 		/// </summary>
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("solution_solutioncomponent")]
-		public System.Collections.Generic.IEnumerable<Kipon.Dynamics.Plugin.Entities.SolutionComponent> solution_solutioncomponent
+		public System.Collections.Generic.IEnumerable<Kipon.WebResources.Tools.Entities.SolutionComponent> solution_solutioncomponent
 		{
 			get
 			{
-				return this.GetRelatedEntities<Kipon.Dynamics.Plugin.Entities.SolutionComponent>("solution_solutioncomponent", null);
+				return this.GetRelatedEntities<Kipon.WebResources.Tools.Entities.SolutionComponent>("solution_solutioncomponent", null);
 			}
 			set
 			{
 				this.OnPropertyChanging("solution_solutioncomponent");
-				this.SetRelatedEntities<Kipon.Dynamics.Plugin.Entities.SolutionComponent>("solution_solutioncomponent", null, value);
+				this.SetRelatedEntities<Kipon.WebResources.Tools.Entities.SolutionComponent>("solution_solutioncomponent", null, value);
 				this.OnPropertyChanged("solution_solutioncomponent");
 			}
 		}
@@ -471,11 +471,11 @@ namespace Kipon.Dynamics.Plugin.Entities
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("parentsolutionid")]
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("solution_parent_solution", Microsoft.Xrm.Sdk.EntityRole.Referencing)]
-		public Kipon.Dynamics.Plugin.Entities.Solution Referencingsolution_parent_solution
+		public Kipon.WebResources.Tools.Entities.Solution Referencingsolution_parent_solution
 		{
 			get
 			{
-				return this.GetRelatedEntity<Kipon.Dynamics.Plugin.Entities.Solution>("solution_parent_solution", Microsoft.Xrm.Sdk.EntityRole.Referencing);
+				return this.GetRelatedEntity<Kipon.WebResources.Tools.Entities.Solution>("solution_parent_solution", Microsoft.Xrm.Sdk.EntityRole.Referencing);
 			}
 		}
 	}
@@ -706,16 +706,16 @@ namespace Kipon.Dynamics.Plugin.Entities
 		/// 1:N solutioncomponent_parent_solutioncomponent
 		/// </summary>
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("solutioncomponent_parent_solutioncomponent", Microsoft.Xrm.Sdk.EntityRole.Referenced)]
-		public System.Collections.Generic.IEnumerable<Kipon.Dynamics.Plugin.Entities.SolutionComponent> Referencedsolutioncomponent_parent_solutioncomponent
+		public System.Collections.Generic.IEnumerable<Kipon.WebResources.Tools.Entities.SolutionComponent> Referencedsolutioncomponent_parent_solutioncomponent
 		{
 			get
 			{
-				return this.GetRelatedEntities<Kipon.Dynamics.Plugin.Entities.SolutionComponent>("solutioncomponent_parent_solutioncomponent", Microsoft.Xrm.Sdk.EntityRole.Referenced);
+				return this.GetRelatedEntities<Kipon.WebResources.Tools.Entities.SolutionComponent>("solutioncomponent_parent_solutioncomponent", Microsoft.Xrm.Sdk.EntityRole.Referenced);
 			}
 			set
 			{
 				this.OnPropertyChanging("Referencedsolutioncomponent_parent_solutioncomponent");
-				this.SetRelatedEntities<Kipon.Dynamics.Plugin.Entities.SolutionComponent>("solutioncomponent_parent_solutioncomponent", Microsoft.Xrm.Sdk.EntityRole.Referenced, value);
+				this.SetRelatedEntities<Kipon.WebResources.Tools.Entities.SolutionComponent>("solutioncomponent_parent_solutioncomponent", Microsoft.Xrm.Sdk.EntityRole.Referenced, value);
 				this.OnPropertyChanged("Referencedsolutioncomponent_parent_solutioncomponent");
 			}
 		}
@@ -725,11 +725,11 @@ namespace Kipon.Dynamics.Plugin.Entities
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("solutionid")]
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("solution_solutioncomponent")]
-		public Kipon.Dynamics.Plugin.Entities.Solution solution_solutioncomponent
+		public Kipon.WebResources.Tools.Entities.Solution solution_solutioncomponent
 		{
 			get
 			{
-				return this.GetRelatedEntity<Kipon.Dynamics.Plugin.Entities.Solution>("solution_solutioncomponent", null);
+				return this.GetRelatedEntity<Kipon.WebResources.Tools.Entities.Solution>("solution_solutioncomponent", null);
 			}
 		}
 		
@@ -738,11 +738,531 @@ namespace Kipon.Dynamics.Plugin.Entities
 		/// </summary>
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("rootsolutioncomponentid")]
 		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("solutioncomponent_parent_solutioncomponent", Microsoft.Xrm.Sdk.EntityRole.Referencing)]
-		public Kipon.Dynamics.Plugin.Entities.SolutionComponent Referencingsolutioncomponent_parent_solutioncomponent
+		public Kipon.WebResources.Tools.Entities.SolutionComponent Referencingsolutioncomponent_parent_solutioncomponent
 		{
 			get
 			{
-				return this.GetRelatedEntity<Kipon.Dynamics.Plugin.Entities.SolutionComponent>("solutioncomponent_parent_solutioncomponent", Microsoft.Xrm.Sdk.EntityRole.Referencing);
+				return this.GetRelatedEntity<Kipon.WebResources.Tools.Entities.SolutionComponent>("solutioncomponent_parent_solutioncomponent", Microsoft.Xrm.Sdk.EntityRole.Referencing);
+			}
+		}
+	}
+	
+	/// <summary>
+	/// Organization-owned entity customizations including form layout and dashboards.
+	/// </summary>
+	[System.Runtime.Serialization.DataContractAttribute()]
+	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("systemform")]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("CrmSvcUtil", "9.0.0.9154")]
+	public partial class SystemForm : Microsoft.Xrm.Sdk.Entity, System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+	{
+		
+		/// <summary>
+		/// Default Constructor.
+		/// </summary>
+		public SystemForm() : 
+				base(EntityLogicalName)
+		{
+		}
+		
+		public const string EntityLogicalName = "systemform";
+		
+		public const int EntityTypeCode = 1030;
+		
+		public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+		
+		public event System.ComponentModel.PropertyChangingEventHandler PropertyChanging;
+		
+		private void OnPropertyChanged(string propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void OnPropertyChanging(string propertyName)
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, new System.ComponentModel.PropertyChangingEventArgs(propertyName));
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the parent form.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("ancestorformid")]
+		public Microsoft.Xrm.Sdk.EntityReference AncestorFormId
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("ancestorformid");
+			}
+			set
+			{
+				this.OnPropertyChanging("AncestorFormId");
+				this.SetAttributeValue("ancestorformid", value);
+				this.OnPropertyChanged("AncestorFormId");
+			}
+		}
+		
+		/// <summary>
+		/// Information that specifies whether this component can be deleted.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("canbedeleted")]
+		public Microsoft.Xrm.Sdk.BooleanManagedProperty CanBeDeleted
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.BooleanManagedProperty>("canbedeleted");
+			}
+			set
+			{
+				this.OnPropertyChanging("CanBeDeleted");
+				this.SetAttributeValue("canbedeleted", value);
+				this.OnPropertyChanged("CanBeDeleted");
+			}
+		}
+		
+		/// <summary>
+		/// For internal use only.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("componentstate")]
+		public Microsoft.Xrm.Sdk.OptionSetValue ComponentState
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("componentstate");
+			}
+		}
+		
+		/// <summary>
+		/// Description of the form or dashboard.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("description")]
+		public string Description
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("description");
+			}
+			set
+			{
+				this.OnPropertyChanging("Description");
+				this.SetAttributeValue("description", value);
+				this.OnPropertyChanged("Description");
+			}
+		}
+		
+		/// <summary>
+		/// Specifies the state of the form.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("formactivationstate")]
+		public Microsoft.Xrm.Sdk.OptionSetValue FormActivationState
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("formactivationstate");
+			}
+			set
+			{
+				this.OnPropertyChanging("FormActivationState");
+				this.SetAttributeValue("formactivationstate", value);
+				this.OnPropertyChanged("FormActivationState");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the record type form.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("formid")]
+		public System.Nullable<System.Guid> FormId
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("formid");
+			}
+			set
+			{
+				this.OnPropertyChanging("FormId");
+				this.SetAttributeValue("formid", value);
+				if (value.HasValue)
+				{
+					base.Id = value.Value;
+				}
+				else
+				{
+					base.Id = System.Guid.Empty;
+				}
+				this.OnPropertyChanged("FormId");
+			}
+		}
+		
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("formid")]
+		public override System.Guid Id
+		{
+			get
+			{
+				return base.Id;
+			}
+			set
+			{
+				this.FormId = value;
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the form used when synchronizing customizations for the Microsoft Dynamics 365 client for Outlook.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("formidunique")]
+		public System.Nullable<System.Guid> FormIdUnique
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("formidunique");
+			}
+		}
+		
+		/// <summary>
+		/// Specifies whether this form is in the updated UI layout in Microsoft Dynamics CRM 2015 or Microsoft Dynamics CRM Online 2015 Update.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("formpresentation")]
+		public Microsoft.Xrm.Sdk.OptionSetValue FormPresentation
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("formpresentation");
+			}
+			set
+			{
+				this.OnPropertyChanging("FormPresentation");
+				this.SetAttributeValue("formpresentation", value);
+				this.OnPropertyChanged("FormPresentation");
+			}
+		}
+		
+		/// <summary>
+		/// XML representation of the form layout.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("formxml")]
+		public string FormXml
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("formxml");
+			}
+			set
+			{
+				this.OnPropertyChanging("FormXml");
+				this.SetAttributeValue("formxml", value);
+				this.OnPropertyChanged("FormXml");
+			}
+		}
+		
+		/// <summary>
+		/// Version in which the form is introduced.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("introducedversion")]
+		public string IntroducedVersion
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("introducedversion");
+			}
+			set
+			{
+				this.OnPropertyChanging("IntroducedVersion");
+				this.SetAttributeValue("introducedversion", value);
+				this.OnPropertyChanged("IntroducedVersion");
+			}
+		}
+		
+		/// <summary>
+		/// Specifies whether this form is merged with the updated UI layout in Microsoft Dynamics CRM 2015 or Microsoft Dynamics CRM Online 2015 Update.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("isairmerged")]
+		public System.Nullable<bool> IsAIRMerged
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("isairmerged");
+			}
+			set
+			{
+				this.OnPropertyChanging("IsAIRMerged");
+				this.SetAttributeValue("isairmerged", value);
+				this.OnPropertyChanged("IsAIRMerged");
+			}
+		}
+		
+		/// <summary>
+		/// Information that specifies whether this component can be customized.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("iscustomizable")]
+		public Microsoft.Xrm.Sdk.BooleanManagedProperty IsCustomizable
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.BooleanManagedProperty>("iscustomizable");
+			}
+			set
+			{
+				this.OnPropertyChanging("IsCustomizable");
+				this.SetAttributeValue("iscustomizable", value);
+				this.OnPropertyChanged("IsCustomizable");
+			}
+		}
+		
+		/// <summary>
+		/// Information that specifies whether the form or the dashboard is the system default.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("isdefault")]
+		public System.Nullable<bool> IsDefault
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("isdefault");
+			}
+			set
+			{
+				this.OnPropertyChanging("IsDefault");
+				this.SetAttributeValue("isdefault", value);
+				this.OnPropertyChanged("IsDefault");
+			}
+		}
+		
+		/// <summary>
+		/// Information that specifies whether the dashboard is enabled for desktop.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("isdesktopenabled")]
+		public System.Nullable<bool> IsDesktopEnabled
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("isdesktopenabled");
+			}
+			set
+			{
+				this.OnPropertyChanging("IsDesktopEnabled");
+				this.SetAttributeValue("isdesktopenabled", value);
+				this.OnPropertyChanged("IsDesktopEnabled");
+			}
+		}
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("ismanaged")]
+		public System.Nullable<bool> IsManaged
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("ismanaged");
+			}
+		}
+		
+		/// <summary>
+		/// Information that specifies whether the dashboard is enabled for tablet.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("istabletenabled")]
+		public System.Nullable<bool> IsTabletEnabled
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<bool>>("istabletenabled");
+			}
+			set
+			{
+				this.OnPropertyChanging("IsTabletEnabled");
+				this.SetAttributeValue("istabletenabled", value);
+				this.OnPropertyChanged("IsTabletEnabled");
+			}
+		}
+		
+		/// <summary>
+		/// Name of the form.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("name")]
+		public string Name
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("name");
+			}
+			set
+			{
+				this.OnPropertyChanging("Name");
+				this.SetAttributeValue("name", value);
+				this.OnPropertyChanged("Name");
+			}
+		}
+		
+		/// <summary>
+		/// Code that represents the record type.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("objecttypecode")]
+		public string ObjectTypeCode
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("objecttypecode");
+			}
+			set
+			{
+				this.OnPropertyChanging("ObjectTypeCode");
+				this.SetAttributeValue("objecttypecode", value);
+				this.OnPropertyChanged("ObjectTypeCode");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the organization.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("organizationid")]
+		public Microsoft.Xrm.Sdk.EntityReference OrganizationId
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("organizationid");
+			}
+		}
+		
+		/// <summary>
+		/// For internal use only.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("overwritetime")]
+		public System.Nullable<System.DateTime> OverwriteTime
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("overwritetime");
+			}
+		}
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("publishedon")]
+		public System.Nullable<System.DateTime> PublishedOn
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.DateTime>>("publishedon");
+			}
+		}
+		
+		/// <summary>
+		/// Unique identifier of the associated solution.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("solutionid")]
+		public System.Nullable<System.Guid> SolutionId
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<System.Guid>>("solutionid");
+			}
+		}
+		
+		/// <summary>
+		/// Type of the form, for example, Dashboard or Preview.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("type")]
+		public Microsoft.Xrm.Sdk.OptionSetValue Type
+		{
+			get
+			{
+				return this.GetAttributeValue<Microsoft.Xrm.Sdk.OptionSetValue>("type");
+			}
+			set
+			{
+				this.OnPropertyChanging("Type");
+				this.SetAttributeValue("type", value);
+				this.OnPropertyChanged("Type");
+			}
+		}
+		
+		/// <summary>
+		/// Unique Name
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("uniquename")]
+		public string UniqueName
+		{
+			get
+			{
+				return this.GetAttributeValue<string>("uniquename");
+			}
+			set
+			{
+				this.OnPropertyChanging("UniqueName");
+				this.SetAttributeValue("uniquename", value);
+				this.OnPropertyChanged("UniqueName");
+			}
+		}
+		
+		/// <summary>
+		/// For internal use only.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("version")]
+		public System.Nullable<int> Version
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<int>>("version");
+			}
+			set
+			{
+				this.OnPropertyChanging("Version");
+				this.SetAttributeValue("version", value);
+				this.OnPropertyChanged("Version");
+			}
+		}
+		
+		/// <summary>
+		/// Represents a version of customizations to be synchronized with the Microsoft Dynamics 365 client for Outlook.
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("versionnumber")]
+		public System.Nullable<long> VersionNumber
+		{
+			get
+			{
+				return this.GetAttributeValue<System.Nullable<long>>("versionnumber");
+			}
+		}
+		
+		/// <summary>
+		/// 1:N form_ancestor_form
+		/// </summary>
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("form_ancestor_form", Microsoft.Xrm.Sdk.EntityRole.Referenced)]
+		public System.Collections.Generic.IEnumerable<Kipon.WebResources.Tools.Entities.SystemForm> Referencedform_ancestor_form
+		{
+			get
+			{
+				return this.GetRelatedEntities<Kipon.WebResources.Tools.Entities.SystemForm>("form_ancestor_form", Microsoft.Xrm.Sdk.EntityRole.Referenced);
+			}
+			set
+			{
+				this.OnPropertyChanging("Referencedform_ancestor_form");
+				this.SetRelatedEntities<Kipon.WebResources.Tools.Entities.SystemForm>("form_ancestor_form", Microsoft.Xrm.Sdk.EntityRole.Referenced, value);
+				this.OnPropertyChanged("Referencedform_ancestor_form");
+			}
+		}
+		
+		/// <summary>
+		/// N:1 form_ancestor_form
+		/// </summary>
+		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("ancestorformid")]
+		[Microsoft.Xrm.Sdk.RelationshipSchemaNameAttribute("form_ancestor_form", Microsoft.Xrm.Sdk.EntityRole.Referencing)]
+		public Kipon.WebResources.Tools.Entities.SystemForm Referencingform_ancestor_form
+		{
+			get
+			{
+				return this.GetRelatedEntity<Kipon.WebResources.Tools.Entities.SystemForm>("form_ancestor_form", Microsoft.Xrm.Sdk.EntityRole.Referencing);
+			}
+			set
+			{
+				this.OnPropertyChanging("Referencingform_ancestor_form");
+				this.SetRelatedEntity<Kipon.WebResources.Tools.Entities.SystemForm>("form_ancestor_form", Microsoft.Xrm.Sdk.EntityRole.Referencing, value);
+				this.OnPropertyChanged("Referencingform_ancestor_form");
 			}
 		}
 	}
@@ -763,24 +1283,35 @@ namespace Kipon.Dynamics.Plugin.Entities
 		}
 		
 		/// <summary>
-		/// Gets a binding to the set of all <see cref="Kipon.Dynamics.Plugin.Entities.Solution"/> entities.
+		/// Gets a binding to the set of all <see cref="Kipon.WebResources.Tools.Entities.Solution"/> entities.
 		/// </summary>
-		public System.Linq.IQueryable<Kipon.Dynamics.Plugin.Entities.Solution> SolutionSet
+		public System.Linq.IQueryable<Kipon.WebResources.Tools.Entities.Solution> SolutionSet
 		{
 			get
 			{
-				return this.CreateQuery<Kipon.Dynamics.Plugin.Entities.Solution>();
+				return this.CreateQuery<Kipon.WebResources.Tools.Entities.Solution>();
 			}
 		}
 		
 		/// <summary>
-		/// Gets a binding to the set of all <see cref="Kipon.Dynamics.Plugin.Entities.SolutionComponent"/> entities.
+		/// Gets a binding to the set of all <see cref="Kipon.WebResources.Tools.Entities.SolutionComponent"/> entities.
 		/// </summary>
-		public System.Linq.IQueryable<Kipon.Dynamics.Plugin.Entities.SolutionComponent> SolutionComponentSet
+		public System.Linq.IQueryable<Kipon.WebResources.Tools.Entities.SolutionComponent> SolutionComponentSet
 		{
 			get
 			{
-				return this.CreateQuery<Kipon.Dynamics.Plugin.Entities.SolutionComponent>();
+				return this.CreateQuery<Kipon.WebResources.Tools.Entities.SolutionComponent>();
+			}
+		}
+		
+		/// <summary>
+		/// Gets a binding to the set of all <see cref="Kipon.WebResources.Tools.Entities.SystemForm"/> entities.
+		/// </summary>
+		public System.Linq.IQueryable<Kipon.WebResources.Tools.Entities.SystemForm> SystemFormSet
+		{
+			get
+			{
+				return this.CreateQuery<Kipon.WebResources.Tools.Entities.SystemForm>();
 			}
 		}
 	}

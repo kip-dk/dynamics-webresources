@@ -2,5 +2,6 @@
   <entities>
     <entity servicename="Solutions">solution</entity>
     <entity servicename="Solutioncomponents">solutioncomponent</entity>
+    <entity servicename="Systemforms">systemform</entity>
   </entities>
 </filter>

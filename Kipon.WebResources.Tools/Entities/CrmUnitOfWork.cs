@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kipon.Dynamics.Plugin.Entities
+namespace Kipon.WebResources.Tools.Entities
 {
     public partial class CrmUnitOfWork : IUnitOfWork, IDisposable
     {
