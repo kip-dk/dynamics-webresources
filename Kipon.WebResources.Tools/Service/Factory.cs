@@ -29,6 +29,7 @@ namespace Kipon.WebResources.Tools.Service
                 new Uri(url));
 
             var orgService = new OrganizationServiceProxy(config, credentials);
+            orgService.EnableProxyTypes();
 
             IOrganizationService service = (IOrganizationService)orgService;
             return service;

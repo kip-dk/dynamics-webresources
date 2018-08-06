@@ -1,3 +1,5 @@
+/// <reference path="../typings/xrm.d.ts" />
+/// <reference path="../typings/forms.d.ts" />
 //#include tools/polyfill.js
 //#include tools/kipon.xrmservice.js
 var Demo;
@@ -14,6 +16,9 @@ var Demo;
         Account.Contact = Contact;
         let contactPrototype = new Contact();
         function loadForm(ctx) {
+            if (ctx.getFormContext().ui.getFormType() == 1 /* Create */) {
+            }
+            let xrmFrom = ctx.getFormContext();
             let form = ctx.getFormContext();
             let lo = form.getAttribute("primarycontactid");
             form.getControl("primarycontactid").addPreSearch(Demo.Account.doSearch);

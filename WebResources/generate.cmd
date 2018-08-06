@@ -1,0 +1,1 @@
+..\Kipon.WebResources.Tools\bin\Debug\Kipon.WebResources.Tools.exe generate "/user:deploy" "/password:#!dWWk56(<ahjDeQ" "/url:http://kipon-dev/kip/XRMServices/2011/Organization.svc" "/source:forms.xml" "/output:.\Scripts\typings\forms.d.ts" "/prefix:kipon" "/solution:WR"

@@ -1,4 +1,6 @@
-﻿//#include tools/polyfill.js
+﻿/// <reference path="../typings/xrm.d.ts" />
+/// <reference path="../typings/forms.d.ts" />
+//#include tools/polyfill.js
 //#include tools/kipon.xrmservice.js
 
 module Demo.Account {
@@ -13,13 +15,19 @@ module Demo.Account {
     let contactPrototype: Contact = new Contact();
 
     export function loadForm(ctx: Xrm.Events.EventContext): void {
+
+        if (ctx.getFormContext().ui.getFormType() == XrmEnum.FormType.Create) {
+        }
+
+        let xrmFrom = ctx.getFormContext();
+
         let form = ctx.getFormContext() as XrmForm.AccountForm;
 
         let lo = form.getAttribute("primarycontactid");
 
-
-
         form.getControl("primarycontactid").addPreSearch(Demo.Account.doSearch);
+
+
 
         var val = lo.getValue();
 
