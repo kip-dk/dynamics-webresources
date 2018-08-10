@@ -6,13 +6,20 @@
 module Demo.Account {
     export class Contact extends Kipon.Entity {
         constructor() {
-            super("contacts", "contactid")
+            super('contacts', 'contactid', true);
         }
-        fullname: string = null;
+        accountrolecode: Kipon.OptionSetValue = new Kipon.OptionSetValue();
+        createdon: Date = new Date();
+        creditlimit: number = null;
+        firstname: string = null;
+        lastname: string = null;
         parentcustomerid: Kipon.EntityReference = new Kipon.EntityReference().meta("accounts", "parentcustomerid_account");
-    }
 
-    let contactPrototype: Contact = new Contact();
+        meta(): Contact {
+            this.creditlimit = 0.0000000001;
+            return this;
+        }
+    }
 
     export function loadForm(ctx: Xrm.Events.EventContext): void {
 
@@ -31,28 +38,32 @@ module Demo.Account {
 
         var val = lo.getValue();
 
-        let s = new Kipon.XrmService();
+        let contact: Contact;
 
-        /*
-        if (val != null && val.length > 0) {
+        let pk = form.getAttribute("primarycontactid").getValue();
+        if (pk != null && pk.length > 0) {
+            let contactPrototype: Contact = new Contact();
 
-            s.get<Contact>(contactPrototype, val[0].id)
-                .subscribe(r => {
-                    // console.log(r);
-                });
+            let s = new Kipon.XrmService();
+            let condition = new Kipon.Condition();
+            condition.where("contactid", Kipon.Comparator.Equals, pk[0].id);
+
+            var contacts = s.query(contactPrototype, condition).subscribe(r => {
+                contact = r.value[0];
+
+                contact.accountrolecode 
+            });
+
         }
-        */
 
-        let con = new Kipon.Condition()
-            .where("parentcustomerid", Kipon.Comparator.Equals, ctx.getFormContext().data.entity.getId());
+    }
 
-        s.query(contactPrototype, con).subscribe(r => {
-            if (r.value != null) {
-                r.value.forEach(c => {
-                    console.log(c);
-                });
-            }
-        });
+    export function SetOptionValues(field: Xrm.Controls.OptionSetControl, vals: number[]) {
+
+        field.clearOptions();
+        vals.forEach(r => {
+            field.addOption({ value: 1, text:'xxxx' }, 0);
+        })
     }
 
     export function doSearch(ctx: Xrm.Events.EventContext): void {

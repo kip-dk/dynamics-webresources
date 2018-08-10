@@ -231,6 +231,12 @@ namespace Kipon.WebResources.Tools.Generator
                         writer.Writeline(method + "(name: \"" + id + "\"): Xrm.Controls.DateControl;");
                         break;
                     }
+                case Microsoft.Xrm.Sdk.Metadata.AttributeTypeCode.Picklist:
+                    {
+                        if (attribute) writer.Writeline("getAttribute(name: \"" + id + "\"): Xrm.Attributes.OptionSetAttribute;");
+                        writer.Writeline(method + "(name: \"" + id + "\"): Xrm.Controls.OptionSetControl;");
+                        break;
+                    }
             }
         }
     }

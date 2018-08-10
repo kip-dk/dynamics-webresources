@@ -8,13 +8,20 @@ var Demo;
     (function (Account) {
         class Contact extends Kipon.Entity {
             constructor() {
-                super("contacts", "contactid");
-                this.fullname = null;
+                super('contacts', 'contactid', true);
+                this.accountrolecode = new Kipon.OptionSetValue();
+                this.createdon = new Date();
+                this.creditlimit = null;
+                this.firstname = null;
+                this.lastname = null;
                 this.parentcustomerid = new Kipon.EntityReference().meta("accounts", "parentcustomerid_account");
+            }
+            meta() {
+                this.creditlimit = 0.0000000001;
+                return this;
             }
         }
         Account.Contact = Contact;
-        let contactPrototype = new Contact();
         function loadForm(ctx) {
             if (ctx.getFormContext().ui.getFormType() == 1 /* Create */) {
             }
@@ -23,27 +30,27 @@ var Demo;
             let lo = form.getAttribute("primarycontactid");
             form.getControl("primarycontactid").addPreSearch(Demo.Account.doSearch);
             var val = lo.getValue();
-            let s = new Kipon.XrmService();
-            /*
-            if (val != null && val.length > 0) {
-    
-                s.get<Contact>(contactPrototype, val[0].id)
-                    .subscribe(r => {
-                        // console.log(r);
-                    });
+            let contact;
+            let pk = form.getAttribute("primarycontactid").getValue();
+            if (pk != null && pk.length > 0) {
+                let contactPrototype = new Contact();
+                let s = new Kipon.XrmService();
+                let condition = new Kipon.Condition();
+                condition.where("contactid", Kipon.Comparator.Equals, pk[0].id);
+                var contacts = s.query(contactPrototype, condition).subscribe(r => {
+                    contact = r.value[0];
+                    contact.accountrolecode;
+                });
             }
-            */
-            let con = new Kipon.Condition()
-                .where("parentcustomerid", Kipon.Comparator.Equals, ctx.getFormContext().data.entity.getId());
-            s.query(contactPrototype, con).subscribe(r => {
-                if (r.value != null) {
-                    r.value.forEach(c => {
-                        console.log(c);
-                    });
-                }
-            });
         }
         Account.loadForm = loadForm;
+        function SetOptionValues(field, vals) {
+            field.clearOptions();
+            vals.forEach(r => {
+                field.addOption({ value: 1, text: 'xxxx' }, 0);
+            });
+        }
+        Account.SetOptionValues = SetOptionValues;
         function doSearch(ctx) {
         }
         Account.doSearch = doSearch;

@@ -18,6 +18,9 @@
         getAttribute(name: "date"): Xrm.Attributes.DateAttribute;
         getControl(name: "date"): Xrm.Controls.DateControl;
 
+        getAttribute(name: "optionset"): Xrm.Attributes.OptionSetAttribute;
+        getControl(name: "optionset"): Xrm.Controls.OptionSetControl;
+
 
         getAttribute(name: string): void;
         getControl(name: string): void;

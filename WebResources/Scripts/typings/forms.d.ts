@@ -22,14 +22,20 @@ declare namespace XrmForm {
 		getControl(name: "primarycontactid"): Xrm.Controls.LookupControl;
 		getAttribute(name: "contactquickform"): Xrm.Attributes.LookupAttribute;
 		getControl(name: "contactquickform"): Xrm.Controls.LookupControl;
+		getAttribute(name: "industrycode"): Xrm.Attributes.OptionSetAttribute;
+		getControl(name: "industrycode"): Xrm.Controls.OptionSetControl;
 		getAttribute(name: "sic"): Xrm.Attributes.StringAttribute;
 		getControl(name: "sic"): Xrm.Controls.StringControl;
+		getAttribute(name: "ownershipcode"): Xrm.Attributes.OptionSetAttribute;
+		getControl(name: "ownershipcode"): Xrm.Controls.OptionSetControl;
 		getAttribute(name: "originatingleadid"): Xrm.Attributes.LookupAttribute;
 		getControl(name: "originatingleadid"): Xrm.Controls.LookupControl;
 		getAttribute(name: "lastusedincampaign"): Xrm.Attributes.DateAttribute;
 		getControl(name: "lastusedincampaign"): Xrm.Controls.DateControl;
 		getAttribute(name: "donotsendmm"): Xrm.Attributes.BooleanAttribute;
 		getControl(name: "donotsendmm"): Xrm.Controls.BooleanControl;
+		getAttribute(name: "preferredcontactmethodcode"): Xrm.Attributes.OptionSetAttribute;
+		getControl(name: "preferredcontactmethodcode"): Xrm.Controls.OptionSetControl;
 		getAttribute(name: "donotemail"): Xrm.Attributes.BooleanAttribute;
 		getControl(name: "donotemail"): Xrm.Controls.BooleanControl;
 		getAttribute(name: "followemail"): Xrm.Attributes.BooleanAttribute;
@@ -48,17 +54,23 @@ declare namespace XrmForm {
 		getControl(name: "creditlimit"): Xrm.Controls.NumberControl;
 		getAttribute(name: "creditonhold"): Xrm.Attributes.BooleanAttribute;
 		getControl(name: "creditonhold"): Xrm.Controls.BooleanControl;
+		getAttribute(name: "paymenttermscode"): Xrm.Attributes.OptionSetAttribute;
+		getControl(name: "paymenttermscode"): Xrm.Controls.OptionSetControl;
+		getAttribute(name: "address1_shippingmethodcode"): Xrm.Attributes.OptionSetAttribute;
+		getControl(name: "address1_shippingmethodcode"): Xrm.Controls.OptionSetControl;
+		getAttribute(name: "address1_freighttermscode"): Xrm.Attributes.OptionSetAttribute;
+		getControl(name: "address1_freighttermscode"): Xrm.Controls.OptionSetControl;
 		getAttribute(name: "header_revenue"): Xrm.Attributes.NumberAttribute;
 		getControl(name: "header_revenue"): Xrm.Controls.NumberControl;
 		getAttribute(name: "header_ownerid"): Xrm.Attributes.LookupAttribute;
 		getControl(name: "header_ownerid"): Xrm.Controls.LookupControl;
 		ui: AccountFormUI;
 	}
-	interface AccountFormUI  {
+	interface AccountFormUI {
 		controls: AccountFormUIControls;
 		tabs: AccountFormUITabs;
-    }
-    interface AccountFormUIControls  {
+	}
+	interface AccountFormUIControls  {
 		get(name: string): void;
 		get(name: "name"): Xrm.Controls.StringControl;
 		get(name: "telephone1"): Xrm.Controls.StringControl;
@@ -69,10 +81,13 @@ declare namespace XrmForm {
 		get(name: "lastonholdtime"): Xrm.Controls.DateControl;
 		get(name: "primarycontactid"): Xrm.Controls.LookupControl;
 		get(name: "contactquickform"): Xrm.Controls.LookupControl;
+		get(name: "industrycode"): Xrm.Controls.OptionSetControl;
 		get(name: "sic"): Xrm.Controls.StringControl;
+		get(name: "ownershipcode"): Xrm.Controls.OptionSetControl;
 		get(name: "originatingleadid"): Xrm.Controls.LookupControl;
 		get(name: "lastusedincampaign"): Xrm.Controls.DateControl;
 		get(name: "donotsendmm"): Xrm.Controls.BooleanControl;
+		get(name: "preferredcontactmethodcode"): Xrm.Controls.OptionSetControl;
 		get(name: "donotemail"): Xrm.Controls.BooleanControl;
 		get(name: "followemail"): Xrm.Controls.BooleanControl;
 		get(name: "donotbulkemail"): Xrm.Controls.BooleanControl;
@@ -82,6 +97,9 @@ declare namespace XrmForm {
 		get(name: "transactioncurrencyid"): Xrm.Controls.LookupControl;
 		get(name: "creditlimit"): Xrm.Controls.NumberControl;
 		get(name: "creditonhold"): Xrm.Controls.BooleanControl;
+		get(name: "paymenttermscode"): Xrm.Controls.OptionSetControl;
+		get(name: "address1_shippingmethodcode"): Xrm.Controls.OptionSetControl;
+		get(name: "address1_freighttermscode"): Xrm.Controls.OptionSetControl;
 		get(name: "header_revenue"): Xrm.Controls.NumberControl;
 		get(name: "header_ownerid"): Xrm.Controls.LookupControl;
 	}
@@ -131,10 +149,16 @@ declare namespace XrmForm {
 		getControl(name: "mobilephone"): Xrm.Controls.StringControl;
 		getAttribute(name: "fax"): Xrm.Attributes.StringAttribute;
 		getControl(name: "fax"): Xrm.Controls.StringControl;
+		getAttribute(name: "preferredcontactmethodcode"): Xrm.Attributes.OptionSetAttribute;
+		getControl(name: "preferredcontactmethodcode"): Xrm.Controls.OptionSetControl;
 		getAttribute(name: "parentcustomerid"): Xrm.Attributes.LookupAttribute;
 		getControl(name: "parentcustomerid"): Xrm.Controls.LookupControl;
 		getAttribute(name: "contactquickform"): Xrm.Attributes.LookupAttribute;
 		getControl(name: "contactquickform"): Xrm.Controls.LookupControl;
+		getAttribute(name: "gendercode"): Xrm.Attributes.OptionSetAttribute;
+		getControl(name: "gendercode"): Xrm.Controls.OptionSetControl;
+		getAttribute(name: "familystatuscode"): Xrm.Attributes.OptionSetAttribute;
+		getControl(name: "familystatuscode"): Xrm.Controls.OptionSetControl;
 		getAttribute(name: "spousesname"): Xrm.Attributes.StringAttribute;
 		getControl(name: "spousesname"): Xrm.Controls.StringControl;
 		getAttribute(name: "birthdate"): Xrm.Attributes.DateAttribute;
@@ -147,6 +171,8 @@ declare namespace XrmForm {
 		getControl(name: "lastusedincampaign"): Xrm.Controls.DateControl;
 		getAttribute(name: "donotsendmm"): Xrm.Attributes.BooleanAttribute;
 		getControl(name: "donotsendmm"): Xrm.Controls.BooleanControl;
+		getAttribute(name: "preferredcontactmethodcode"): Xrm.Attributes.OptionSetAttribute;
+		getControl(name: "preferredcontactmethodcode"): Xrm.Controls.OptionSetControl;
 		getAttribute(name: "donotemail"): Xrm.Attributes.BooleanAttribute;
 		getControl(name: "donotemail"): Xrm.Controls.BooleanControl;
 		getAttribute(name: "followemail"): Xrm.Attributes.BooleanAttribute;
@@ -165,6 +191,12 @@ declare namespace XrmForm {
 		getControl(name: "creditlimit"): Xrm.Controls.NumberControl;
 		getAttribute(name: "creditonhold"): Xrm.Attributes.BooleanAttribute;
 		getControl(name: "creditonhold"): Xrm.Controls.BooleanControl;
+		getAttribute(name: "paymenttermscode"): Xrm.Attributes.OptionSetAttribute;
+		getControl(name: "paymenttermscode"): Xrm.Controls.OptionSetControl;
+		getAttribute(name: "address1_shippingmethodcode"): Xrm.Attributes.OptionSetAttribute;
+		getControl(name: "address1_shippingmethodcode"): Xrm.Controls.OptionSetControl;
+		getAttribute(name: "address1_freighttermscode"): Xrm.Attributes.OptionSetAttribute;
+		getControl(name: "address1_freighttermscode"): Xrm.Controls.OptionSetControl;
 		getAttribute(name: "header_ownerid"): Xrm.Attributes.LookupAttribute;
 		getControl(name: "header_ownerid"): Xrm.Controls.LookupControl;
 		ui: ContactFormUI;
@@ -182,14 +214,18 @@ declare namespace XrmForm {
 		get(name: "telephone1"): Xrm.Controls.StringControl;
 		get(name: "mobilephone"): Xrm.Controls.StringControl;
 		get(name: "fax"): Xrm.Controls.StringControl;
+		get(name: "preferredcontactmethodcode"): Xrm.Controls.OptionSetControl;
 		get(name: "parentcustomerid"): Xrm.Controls.LookupControl;
 		get(name: "contactquickform"): Xrm.Controls.LookupControl;
+		get(name: "gendercode"): Xrm.Controls.OptionSetControl;
+		get(name: "familystatuscode"): Xrm.Controls.OptionSetControl;
 		get(name: "spousesname"): Xrm.Controls.StringControl;
 		get(name: "birthdate"): Xrm.Controls.DateControl;
 		get(name: "anniversary"): Xrm.Controls.DateControl;
 		get(name: "originatingleadid"): Xrm.Controls.LookupControl;
 		get(name: "lastusedincampaign"): Xrm.Controls.DateControl;
 		get(name: "donotsendmm"): Xrm.Controls.BooleanControl;
+		get(name: "preferredcontactmethodcode"): Xrm.Controls.OptionSetControl;
 		get(name: "donotemail"): Xrm.Controls.BooleanControl;
 		get(name: "followemail"): Xrm.Controls.BooleanControl;
 		get(name: "donotbulkemail"): Xrm.Controls.BooleanControl;
@@ -199,6 +235,9 @@ declare namespace XrmForm {
 		get(name: "transactioncurrencyid"): Xrm.Controls.LookupControl;
 		get(name: "creditlimit"): Xrm.Controls.NumberControl;
 		get(name: "creditonhold"): Xrm.Controls.BooleanControl;
+		get(name: "paymenttermscode"): Xrm.Controls.OptionSetControl;
+		get(name: "address1_shippingmethodcode"): Xrm.Controls.OptionSetControl;
+		get(name: "address1_freighttermscode"): Xrm.Controls.OptionSetControl;
 		get(name: "header_ownerid"): Xrm.Controls.LookupControl;
 	}
 	interface ContactFormUITabs  {
