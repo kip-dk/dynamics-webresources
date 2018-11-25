@@ -2,51 +2,67 @@
 /// <reference path="../typings/forms.d.ts" />
 //#include tools/polyfill.js
 //#include tools/kipon.xrmservice.js
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var Demo;
 (function (Demo) {
     var Account;
     (function (Account) {
-        class Contact extends Kipon.Entity {
-            constructor() {
-                super('contacts', 'contactid', true);
-                this.accountrolecode = new Kipon.OptionSetValue();
-                this.createdon = new Date();
-                this.creditlimit = null;
-                this.firstname = null;
-                this.lastname = null;
-                this.parentcustomerid = new Kipon.EntityReference().meta("accounts", "parentcustomerid_account");
+        var Contact = /** @class */ (function (_super) {
+            __extends(Contact, _super);
+            function Contact() {
+                var _this = _super.call(this, 'contacts', 'contactid', true) || this;
+                _this.accountrolecode = new Kipon.OptionSetValue();
+                _this.createdon = new Date();
+                _this.creditlimit = null;
+                _this.firstname = null;
+                _this.lastname = null;
+                _this.parentcustomerid = new Kipon.EntityReference().meta("accounts", "parentcustomerid_account");
+                return _this;
             }
-            meta() {
+            Contact.prototype.meta = function () {
                 this.creditlimit = 0.0000000001;
                 return this;
-            }
-        }
+            };
+            return Contact;
+        }(Kipon.Entity));
         Account.Contact = Contact;
         function loadForm(ctx) {
+            var contactPrototype = new Contact();
             if (ctx.getFormContext().ui.getFormType() == 1 /* Create */) {
             }
-            let xrmFrom = ctx.getFormContext();
-            let form = ctx.getFormContext();
-            let lo = form.getAttribute("primarycontactid");
+            var xrmFrom = ctx.getFormContext();
+            var form = ctx.getFormContext();
+            var lo = form.getAttribute("primarycontactid");
             form.getControl("primarycontactid").addPreSearch(Demo.Account.doSearch);
             var val = lo.getValue();
-            let contact;
-            let pk = form.getAttribute("primarycontactid").getValue();
+            var contact;
+            var pk = form.getAttribute("primarycontactid").getValue();
             if (pk != null && pk.length > 0) {
-                let contactPrototype = new Contact();
-                let s = new Kipon.XrmService();
-                let condition = new Kipon.Condition();
+                var s = new Kipon.XrmService();
+                var condition = new Kipon.Condition();
                 condition.where("contactid", Kipon.Comparator.Equals, pk[0].id);
-                var contacts = s.query(contactPrototype, condition).subscribe(r => {
+                var contacts = s.query(contactPrototype, condition).subscribe(function (r) {
                     contact = r.value[0];
-                    contact.accountrolecode;
+                    console.log(contact);
                 });
             }
         }
         Account.loadForm = loadForm;
         function SetOptionValues(field, vals) {
             field.clearOptions();
-            vals.forEach(r => {
+            vals.forEach(function (r) {
                 field.addOption({ value: 1, text: 'xxxx' }, 0);
             });
         }

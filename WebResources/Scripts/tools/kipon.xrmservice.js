@@ -1,87 +1,94 @@
 //merge: always
 var Kipon;
 (function (Kipon) {
-    class Observable {
-        constructor() {
+    var Observable = /** @class */ (function () {
+        function Observable() {
             this.subscribers = [];
             this.maps = [];
             this.errors = [];
         }
-        subscribe(t) {
+        Observable.prototype.subscribe = function (t) {
             this.subscribers.push(t);
             return this;
-        }
-        map(t) {
+        };
+        Observable.prototype.map = function (t) {
             this.maps.push(t);
             return this;
-        }
-        catch(t) {
+        };
+        Observable.prototype.catch = function (t) {
             this.errors.push(t);
             return this;
-        }
-    }
+        };
+        return Observable;
+    }());
     Kipon.Observable = Observable;
-    class Http {
-        constructor() {
+    var Http = /** @class */ (function () {
+        function Http() {
             if (Xrm.Utility != null && Xrm.Utility.getGlobalContext != null) {
                 this.ctx = Xrm.Utility.getGlobalContext();
             }
             if (this.ctx == null) {
                 this.ctx = window["Xrm"]["Page"]["context"];
             }
-            let ve = this.ctx.getVersion();
+            var ve = this.ctx.getVersion();
             if (ve != null && ve.length == 0) {
-                let v = ve.split('.');
+                var v = ve.split('.');
                 this.ver = 'v' + v[0] + '.' + v[1];
             }
             else {
                 this.ver = 'v8.0';
             }
         }
-        clientUrl() {
+        Http.prototype.clientUrl = function () {
             return this.ctx.getClientUrl() + '/api/data/' + this.ver + '/';
-        }
-        get(url, top = 0) {
-            let result = new Observable();
-            setTimeout(() => {
-                this.httpgetdelete(url, "GET", top, result);
+        };
+        Http.prototype.get = function (url, top) {
+            var _this = this;
+            if (top === void 0) { top = 0; }
+            var result = new Observable();
+            setTimeout(function () {
+                _this.httpgetdelete(url, "GET", top, result);
             }, 1);
             return result;
-        }
-        post(url, obj) {
-            let result = new Observable();
-            setTimeout(() => {
-                this.httppostpatchput(url, obj, "POST", result);
+        };
+        Http.prototype.post = function (url, obj) {
+            var _this = this;
+            var result = new Observable();
+            setTimeout(function () {
+                _this.httppostpatchput(url, obj, "POST", result);
             }, 1);
             return result;
-        }
-        patch(url, obj) {
-            let result = new Observable();
-            setTimeout(() => {
-                this.httppostpatchput(url, obj, "PATCH", result);
+        };
+        Http.prototype.patch = function (url, obj) {
+            var _this = this;
+            var result = new Observable();
+            setTimeout(function () {
+                _this.httppostpatchput(url, obj, "PATCH", result);
             }, 1);
             return result;
-        }
-        put(url, obj) {
-            let result = new Observable();
-            setTimeout(() => {
-                this.httppostpatchput(url, obj, "PUT", result);
+        };
+        Http.prototype.put = function (url, obj) {
+            var _this = this;
+            var result = new Observable();
+            setTimeout(function () {
+                _this.httppostpatchput(url, obj, "PUT", result);
             }, 1);
             return result;
-        }
-        delete(url) {
-            let result = new Observable();
-            setTimeout(() => {
-                this.httpgetdelete(url, "DELETE", null, result);
+        };
+        Http.prototype.delete = function (url) {
+            var _this = this;
+            var result = new Observable();
+            setTimeout(function () {
+                _this.httpgetdelete(url, "DELETE", null, result);
             }, 1);
             return result;
-        }
-        httpgetdelete(relativeurl, method, top, promise) {
+        };
+        Http.prototype.httpgetdelete = function (relativeurl, method, top, promise) {
             if (promise.subscribe == null || promise.subscribe.length == 0) {
                 return;
             }
-            let url = this.clientUrl() + relativeurl;
-            let req = new XMLHttpRequest();
+            var url = this.clientUrl() + relativeurl;
+            var req = new XMLHttpRequest();
             req.open(method, url, true);
             this.setHeaders(req);
             if (top != null && top > 0) {
@@ -89,142 +96,154 @@ var Kipon;
             }
             this.listen(req, promise);
             req.send();
-        }
-        httppostpatchput(relativeurl, obj, method, promise) {
+        };
+        Http.prototype.httppostpatchput = function (relativeurl, obj, method, promise) {
             if (promise.subscribe == null || promise.subscribe.length == 0) {
                 return;
             }
-            let url = this.clientUrl() + relativeurl;
-            let req = new XMLHttpRequest();
+            var url = this.clientUrl() + relativeurl;
+            var req = new XMLHttpRequest();
             req.open(method, url, true);
             this.setHeaders(req);
             req.setRequestHeader("Prefer", "return=representation");
             this.listen(req, promise);
             req.send(JSON.stringify(obj));
-        }
-        setHeaders(req) {
+        };
+        Http.prototype.setHeaders = function (req) {
             req.setRequestHeader("OData-MaxVersion", "4.0");
             req.setRequestHeader("OData-Version", "4.0");
             req.setRequestHeader("Accept", "application/json");
             req.setRequestHeader("Content-Type", "application/json; charset=utf-8");
             req.setRequestHeader("Prefer", "odata.include-annotations=\"*\"");
-        }
-        listen(req, promise) {
+        };
+        Http.prototype.listen = function (req, promise) {
             req.onreadystatechange = function () {
+                var _this = this;
                 if (this.readyState === 4) {
                     req.onreadystatechange = null;
                     if (this.status === 200) {
                         var result = JSON.parse(this.response);
                         var maps = promise["maps"];
                         if (maps != null && maps.length > 0) {
-                            maps.forEach(r => {
+                            maps.forEach(function (r) {
                                 result = r(result);
                             });
                         }
-                        promise["subscribers"].forEach(r => {
+                        promise["subscribers"].forEach(function (r) {
                             r(result);
                         });
                     }
                     else {
-                        promise["errors"].forEach(e => {
-                            e(this.statusText);
+                        promise["errors"].forEach(function (e) {
+                            e(_this.statusText);
                         });
                     }
                 }
             };
-        }
-    }
+        };
+        return Http;
+    }());
     Kipon.Http = Http;
-    class Expand {
-    }
+    var Expand = /** @class */ (function () {
+        function Expand() {
+        }
+        return Expand;
+    }());
     Kipon.Expand = Expand;
-    class Entity {
-        constructor(pluralName, keyName, updateable = false) {
+    var Entity = /** @class */ (function () {
+        function Entity(pluralName, keyName, updateable) {
+            if (updateable === void 0) { updateable = false; }
             this._updateable = false;
             this._pluralName = pluralName;
             this._keyName = keyName;
             this._updateable = updateable;
         }
-    }
+        return Entity;
+    }());
     Kipon.Entity = Entity;
-    class EntityReference {
-        constructor(id = null) {
+    var EntityReference = /** @class */ (function () {
+        function EntityReference(id) {
+            if (id === void 0) { id = null; }
             this.id = id;
         }
-        meta(pluralName, associatednavigationproperty) {
+        EntityReference.prototype.meta = function (pluralName, associatednavigationproperty) {
             this.pluralName = pluralName;
             this.associatednavigationproperty = associatednavigationproperty;
             return this;
-        }
-        clone() {
-            let result = new EntityReference();
+        };
+        EntityReference.prototype.clone = function () {
+            var result = new EntityReference();
             result.id = this.id;
             result.name = this.name;
             result.logicalname = this.name;
             result.associatednavigationproperty = this.associatednavigationproperty;
             return result;
-        }
-        associatednavigationpropertyname() {
+        };
+        EntityReference.prototype.associatednavigationpropertyname = function () {
             if (this.associatednavigationproperty == null || this.associatednavigationproperty == '') {
                 throw 'navigation property has not been set for this EntityReference instance';
             }
-            if (this.associatednavigationproperty.endsWith('@odata.bind')) {
+            if (this.associatednavigationproperty["endsWith"]('@odata.bind')) {
                 return this.associatednavigationproperty;
             }
             return this.associatednavigationproperty + '@odata.bind';
-        }
-        equals(ref) {
+        };
+        EntityReference.prototype.equals = function (ref) {
             return this.id == ref.id && this.logicalname == ref.logicalname;
-        }
-        static same(ref1, ref2) {
+        };
+        EntityReference.same = function (ref1, ref2) {
             if (ref1 == null && ref2 == null) {
                 return true;
             }
-            let id1 = null;
-            let id2 = null;
+            var id1 = null;
+            var id2 = null;
             if (ref1 != null)
                 id1 = ref1.id;
             if (ref2 != null)
                 id2 = ref2.id;
             return id1 == id2;
-        }
-    }
+        };
+        return EntityReference;
+    }());
     Kipon.EntityReference = EntityReference;
-    class OptionSetValue {
-        constructor(value = null, name = null) {
+    var OptionSetValue = /** @class */ (function () {
+        function OptionSetValue(value, name) {
+            if (value === void 0) { value = null; }
+            if (name === void 0) { name = null; }
             this.value = value;
             this.name = name;
         }
-        equals(o) {
+        OptionSetValue.prototype.equals = function (o) {
             if (this.value == null && (o == null || o.value == null))
                 return true;
             return this.value == o.value;
-        }
-        clone() {
-            let r = new OptionSetValue();
+        };
+        OptionSetValue.prototype.clone = function () {
+            var r = new OptionSetValue();
             r.name = this.name;
             r.value = this.value;
             return r;
-        }
-        static same(o1, o2) {
+        };
+        OptionSetValue.same = function (o1, o2) {
             if (o1 == null && o2 == null)
                 return true;
-            let v1 = null;
-            let v2 = null;
+            var v1 = null;
+            var v2 = null;
             if (o1 != null)
                 v1 = o1.value;
             if (o2 != null)
                 v2 = o2.value;
             return v1 == v2;
-        }
-    }
+        };
+        return OptionSetValue;
+    }());
     Kipon.OptionSetValue = OptionSetValue;
-    let Operator;
+    var Operator;
     (function (Operator) {
         Operator[Operator["And"] = 0] = "And";
         Operator[Operator["Or"] = 1] = "Or";
     })(Operator = Kipon.Operator || (Kipon.Operator = {}));
-    let Comparator;
+    var Comparator;
     (function (Comparator) {
         Comparator[Comparator["Equals"] = 0] = "Equals";
         Comparator[Comparator["NotEquals"] = 1] = "NotEquals";
@@ -241,18 +260,21 @@ var Kipon;
         Comparator[Comparator["LessThan"] = 12] = "LessThan";
         Comparator[Comparator["LessThanOrEQual"] = 13] = "LessThanOrEQual";
     })(Comparator = Kipon.Comparator || (Kipon.Comparator = {}));
-    class ColumnBuilder {
-        constructor() {
+    var ColumnBuilder = /** @class */ (function () {
+        function ColumnBuilder() {
             this.columns = null;
             this.hasEntityReference = false;
         }
-    }
+        return ColumnBuilder;
+    }());
     Kipon.ColumnBuilder = ColumnBuilder;
-    class Filter {
-        toQueryString(prototype) {
-            let result = '';
-            let _f = this.field;
-            let _v = "'" + this.value + "'";
+    var Filter = /** @class */ (function () {
+        function Filter() {
+        }
+        Filter.prototype.toQueryString = function (prototype) {
+            var result = '';
+            var _f = this.field;
+            var _v = "'" + this.value + "'";
             if (typeof this.value == 'number') {
                 _v = this.value.toString();
             }
@@ -275,8 +297,11 @@ var Kipon;
                     }
                 }
             }
-            if (_f.startsWith('_') && _f.endsWith('_value') && _v != null) {
-                _v = _v.replace('{', '').replace('}', '');
+            if (_f["startsWith"]('_') && _f["endsWith"]('_value') && _v != null) {
+                _v = this.value.replace('{', '').replace('}', '');
+            }
+            if (_f == prototype._keyName) {
+                _v = this.value.replace('{', '').replace('}', '');
             }
             switch (this.operator) {
                 case Comparator.Equals: {
@@ -323,45 +348,48 @@ var Kipon;
                 }
             }
             return result;
-        }
-    }
+        };
+        return Filter;
+    }());
     Kipon.Filter = Filter;
-    class Condition {
-        constructor(operator = Operator.And) {
+    var Condition = /** @class */ (function () {
+        function Condition(operator) {
+            if (operator === void 0) { operator = Operator.And; }
             this.operator = Operator.And;
             this.operator = operator;
             this.filter = [];
             this.children = [];
         }
-        where(field, opr, value = null) {
-            let f = new Filter();
+        Condition.prototype.where = function (field, opr, value) {
+            if (value === void 0) { value = null; }
+            var f = new Filter();
             f.field = field;
             f.value = value;
             f.operator = opr;
             this.filter.push(f);
             return this;
-        }
-        group(opr) {
-            let result = new Condition(opr);
+        };
+        Condition.prototype.group = function (opr) {
+            var result = new Condition(opr);
             result.parent = this;
             this.children.push(result);
             return result;
-        }
-        isActive() {
+        };
+        Condition.prototype.isActive = function () {
             return this.where("statecode", Comparator.Equals, 0);
-        }
-        isInactive() {
+        };
+        Condition.prototype.isInactive = function () {
             return this.where("statecode", Comparator.Equals, 1);
-        }
-        toQueryString(prototype) {
+        };
+        Condition.prototype.toQueryString = function (prototype) {
             if ((this.children == null || this.children.length == 0) && (this.filter == null || this.filter.length == 0)) {
                 return null;
             }
-            let me = this;
-            let result = '';
-            let opr = '';
+            var me = this;
+            var result = '';
+            var opr = '';
             if (this.filter != null && this.filter.length > 0) {
-                this.filter.forEach(r => {
+                this.filter.forEach(function (r) {
                     result += opr + r.toQueryString(prototype);
                     if (me.operator == Operator.And) {
                         opr = ' and ';
@@ -372,7 +400,7 @@ var Kipon;
                 });
             }
             if (this.children != null && this.children.length > 0) {
-                this.children.forEach(c => {
+                this.children.forEach(function (c) {
                     result += opr + "(" + c.toQueryString(prototype) + ")";
                     if (me.operator == Operator.And) {
                         opr = ' and ';
@@ -383,11 +411,14 @@ var Kipon;
                 });
             }
             return result;
-        }
-    }
+        };
+        return Condition;
+    }());
     Kipon.Condition = Condition;
-    class XrmTransactionItem {
-        constructor(type, prototype, instance, field = null, value = null) {
+    var XrmTransactionItem = /** @class */ (function () {
+        function XrmTransactionItem(type, prototype, instance, field, value) {
+            if (field === void 0) { field = null; }
+            if (value === void 0) { value = null; }
             this.id = null;
             this.type = type;
             this.prototype = prototype;
@@ -395,70 +426,80 @@ var Kipon;
             this.field = field;
             this.value = value;
         }
-    }
-    class XrmTransaction {
-        constructor() {
+        return XrmTransactionItem;
+    }());
+    var XrmTransaction = /** @class */ (function () {
+        function XrmTransaction() {
             this.oprs = [];
         }
-        put(prototype, instance, field, value) {
+        XrmTransaction.prototype.put = function (prototype, instance, field, value) {
             this.oprs.push(new XrmTransactionItem("put", prototype, instance, field, value));
-        }
-        delete(instance) {
+        };
+        XrmTransaction.prototype.delete = function (instance) {
             this.oprs.push(new XrmTransactionItem("delete", null, instance));
-        }
-        create(prototype, instance) {
+        };
+        XrmTransaction.prototype.create = function (prototype, instance) {
             this.oprs.push(new XrmTransactionItem("create", prototype, instance));
-        }
-        update(prototype, instance) {
+        };
+        XrmTransaction.prototype.update = function (prototype, instance) {
             this.oprs.push(new XrmTransactionItem("update", prototype, instance));
-        }
-    }
+        };
+        return XrmTransaction;
+    }());
     Kipon.XrmTransaction = XrmTransaction;
-    class XrmAccess {
-        constructor(lazy = false) {
+    var XrmAccess = /** @class */ (function () {
+        function XrmAccess(lazy) {
+            if (lazy === void 0) { lazy = false; }
             this.lazy = null;
             this.resolved = null;
             this.lazy = lazy;
         }
-    }
+        return XrmAccess;
+    }());
     Kipon.XrmAccess = XrmAccess;
-    class ExpandProperty {
-    }
-    class XrmService {
-        constructor() {
+    var ExpandProperty = /** @class */ (function () {
+        function ExpandProperty() {
+        }
+        return ExpandProperty;
+    }());
+    var XrmService = /** @class */ (function () {
+        function XrmService() {
             this.context = {};
             this.changemanager = {};
             this.tick = new Date().valueOf();
             this.debug = false;
             this.http = new Http();
         }
-        get(prototype, id) {
-            let me = this;
-            let columnDef = this.columnBuilder(prototype);
-            let expand = null;
-            let ep = this.getExpandProperty(prototype);
+        XrmService.prototype.get = function (prototype, id) {
+            var me = this;
+            var columnDef = this.columnBuilder(prototype);
+            var expand = null;
+            var ep = this.getExpandProperty(prototype);
             if (ep != null) {
                 expand = this.$expandToExpand(ep);
             }
-            let _ex = this.expandString(expand, "&");
-            let _id = this.toGuid(id);
-            let url = prototype._pluralName + "(" + _id + ")?$select=" + columnDef.columns + _ex;
-            return this.http.get(url).map(r => {
+            var _ex = this.expandString(expand, "&");
+            var _id = this.toGuid(id);
+            var url = prototype._pluralName + "(" + _id + ")?$select=" + columnDef.columns + _ex;
+            return this.http.get(url).map(function (r) {
                 return me.resolve(prototype, r, prototype._updateable);
             });
-        }
-        query(prototype, condition, orderBy = null, top = 0, count = false) {
-            let me = this;
-            let fields = this.columnBuilder(prototype).columns;
-            let con = condition;
+        };
+        XrmService.prototype.query = function (prototype, condition, orderBy, top, count) {
+            if (orderBy === void 0) { orderBy = null; }
+            if (top === void 0) { top = 0; }
+            if (count === void 0) { count = false; }
+            var me = this;
+            var fields = this.columnBuilder(prototype).columns;
+            var con = condition;
             while (con.parent != null)
                 con = con.parent;
-            let filter = con.toQueryString(prototype);
-            let url = prototype._pluralName;
+            var filter = con.toQueryString(prototype);
+            var url = prototype._pluralName;
             if ((fields != null && fields != '') || (filter != null && filter != '') || (orderBy != null && orderBy != '') || top > 0) {
                 url += "?";
             }
-            let sep = '';
+            var sep = '';
             if (fields != null && fields != '') {
                 url += '$select=' + fields;
                 sep = '&';
@@ -477,19 +518,20 @@ var Kipon;
             }
             if (this.debug)
                 console.log(url);
-            let pu = this.http.clientUrl() + url;
-            return this.http.get(url).map(response => {
-                let result = me.resolveQueryResult(prototype, response, top, [pu], 0);
+            var pu = this.http.clientUrl() + url;
+            return this.http.get(url).map(function (response) {
+                var result = me.resolveQueryResult(prototype, response, top, [pu], 0);
                 return result;
             });
-        }
-        create(prototype, instance) {
-            let newr = this.prepareNewInstance(prototype, instance);
+        };
+        XrmService.prototype.create = function (prototype, instance) {
+            var _this = this;
+            var newr = this.prepareNewInstance(prototype, instance);
             if (this.debug) {
                 console.log(newr);
             }
-            return this.http.post(prototype._pluralName, newr).map(response => {
-                if (this.debug) {
+            return this.http.post(prototype._pluralName, newr).map(function (response) {
+                if (_this.debug) {
                     console.log(response);
                 }
                 if (response != null) {
@@ -497,50 +539,50 @@ var Kipon;
                         response._pluralName = prototype._pluralName;
                         response._keyName = prototype._keyName;
                         response._updateable = false;
-                        let key = response._pluralName + ':' + response.id;
-                        for (let prop in prototype) {
+                        var key = response._pluralName + ':' + response.id;
+                        for (var prop in prototype) {
                             if (typeof prototype[prop] === 'function') {
                                 response[prop] = prototype[prop];
                                 continue;
                             }
                             if (prototype.hasOwnProperty(prop)) {
-                                if (this.ignoreColumn(prop))
+                                if (_this.ignoreColumn(prop))
                                     continue;
-                                let value = instance[prop];
+                                var value = instance[prop];
                                 if (value !== null) {
                                     response[prop] = value;
                                 }
                             }
                         }
-                        this.context[key] = response;
+                        _this.context[key] = response;
                         return response;
                     }
                     else {
-                        return this.resolve(prototype, response, true);
+                        return _this.resolve(prototype, response, true);
                     }
                 }
                 return null;
             });
-        }
-        prepareUpdate(prototype, instance) {
-            let me = this;
-            let upd = {};
-            let countFields = 0;
-            let key = instance._pluralName + ':' + instance.id;
-            let cm = this.changemanager[key];
+        };
+        XrmService.prototype.prepareUpdate = function (prototype, instance) {
+            var me = this;
+            var upd = {};
+            var countFields = 0;
+            var key = instance._pluralName + ':' + instance.id;
+            var cm = this.changemanager[key];
             if (typeof cm === 'undefined' || cm === null) {
                 throw 'the object is not under change control and cannot be updated within this context';
             }
-            for (let prop in prototype) {
+            for (var prop in prototype) {
                 if (prototype.hasOwnProperty(prop) && typeof prototype[prop] != 'function') {
                     if (this.ignoreColumn(prop))
                         continue;
-                    let prevValue = cm[prop];
-                    let newValue = instance[prop];
+                    var prevValue = cm[prop];
+                    var newValue = instance[prop];
                     if ((prevValue === 'undefined' || prevValue === null) && (newValue === 'undefined' || newValue === null))
                         continue;
                     if (prototype[prop] instanceof EntityReference) {
-                        let r = prototype[prop];
+                        var r = prototype[prop];
                         if (!EntityReference.same(prevValue, newValue)) {
                             if (newValue != null && newValue["id"] != null && newValue["id"] != '') {
                                 upd[prototype[prop]['associatednavigationpropertyname']()] = '/' + prototype[prop]['pluralName'] + '(' + newValue['id'] + ')';
@@ -554,7 +596,7 @@ var Kipon;
                     }
                     if (prototype[prop] instanceof OptionSetValue) {
                         if (!OptionSetValue.same(prevValue, newValue)) {
-                            let o = newValue;
+                            var o = newValue;
                             if (o == null || o.value == null) {
                                 upd[prop.toString()] = null;
                             }
@@ -571,7 +613,7 @@ var Kipon;
                                 upd[prop.toString()] = null;
                             }
                             else {
-                                let d = newValue;
+                                var d = newValue;
                                 upd[prop.toString()] = d.toISOString();
                             }
                             countFields++;
@@ -588,11 +630,12 @@ var Kipon;
                 return upd;
             }
             return null;
-        }
-        resolveAccess(prototype, instance) {
-            this.mapAccess(prototype, instance).subscribe(r => { });
-        }
-        mapAccess(prototype, instance) {
+        };
+        XrmService.prototype.resolveAccess = function (prototype, instance) {
+            this.mapAccess(prototype, instance).subscribe(function (r) { });
+        };
+        XrmService.prototype.mapAccess = function (prototype, instance) {
+            var _this = this;
             if (!prototype.hasOwnProperty('access') || !(prototype['access'] instanceof XrmAccess)) {
                 return;
             }
@@ -600,23 +643,23 @@ var Kipon;
                 instance['access'] = new XrmAccess();
             }
             else {
-                let r = instance['access'];
-                if (r.resolved != null) {
+                var r_1 = instance['access'];
+                if (r_1.resolved != null) {
                     return;
                 }
             }
-            let r = instance['access'];
+            var r = instance['access'];
             r.resolved = false;
-            let url = "systemusers(" + this.http.ctx.getUserId() + ")/Microsoft.Dynamics.CRM.RetrievePrincipalAccess(Target=@tid)?@tid={\"@odata.id\":\"" + prototype._pluralName + "(" + instance.id + ")\"}";
+            var url = "systemusers(" + this.http.ctx.getUserId() + ")/Microsoft.Dynamics.CRM.RetrievePrincipalAccess(Target=@tid)?@tid={\"@odata.id\":\"" + prototype._pluralName + "(" + instance.id + ")\"}";
             if (this.debug) {
                 console.log(url);
             }
-            return this.http.get(url).map(r => {
-                if (this.debug) {
+            return this.http.get(url).map(function (r) {
+                if (_this.debug) {
                     console.log(r);
                 }
-                let i = instance['access'];
-                let perm = r["AccessRights"];
+                var i = instance['access'];
+                var perm = r["AccessRights"];
                 // ReadAccess, WriteAccess, AppendAccess, AppendToAccess, CreateAccess, DeleteAccess, ShareAccess, AssignAccess
                 i.append = perm.indexOf('AppendAccess') >= 0;
                 i.appendTo = perm.indexOf('AppendToAccess') >= 0;
@@ -629,9 +672,9 @@ var Kipon;
                 i.resolved = true;
                 return instance;
             });
-        }
-        preparePutValue(prototype, field, value) {
-            let t = prototype[field];
+        };
+        XrmService.prototype.preparePutValue = function (prototype, field, value) {
+            var t = prototype[field];
             if (t instanceof OptionSetValue) {
                 if (value == null || value['value'] == null) {
                     return { field: field, value: null, propertyAs: 'value' };
@@ -647,7 +690,7 @@ var Kipon;
                 else {
                     // this is a really really stupid hack, because dynamics do not accept Integer for decimal fields, so we force 
                     // a decimal position into the value before it is send.
-                    let rv = value + t;
+                    var rv = value + t;
                     return { field: field, value: rv, propertyAs: 'value' };
                 }
             }
@@ -661,31 +704,31 @@ var Kipon;
                 }
             }
             return { field: field, value: value, propertyAs: 'value' };
-        }
-        prepareNewInstance(prototype, instance) {
-            let newr = {};
-            for (let prop in prototype) {
+        };
+        XrmService.prototype.prepareNewInstance = function (prototype, instance) {
+            var newr = {};
+            for (var prop in prototype) {
                 if (prototype.hasOwnProperty(prop) && typeof prototype[prop] !== 'function') {
                     if (this.ignoreColumn(prop))
                         continue;
-                    let value = instance[prop];
+                    var value = instance[prop];
                     if (value !== 'undefined' && value !== null) {
                         if (prototype[prop] instanceof EntityReference) {
-                            let ref = instance[prop];
+                            var ref = instance[prop];
                             if (ref != null && ref.id != null) {
                                 newr[prototype[prop]['associatednavigationpropertyname']()] = '/' + prototype[prop]['pluralName'] + '(' + ref.id + ')';
                             }
                             continue;
                         }
                         if (prototype[prop] instanceof OptionSetValue) {
-                            let o = instance[prop];
+                            var o = instance[prop];
                             if (o != null && o.value != null) {
                                 newr[prop.toString()] = o.value;
                             }
                             continue;
                         }
                         if (prototype[prop] instanceof Date) {
-                            let d = value;
+                            var d = value;
                             if (d != null) {
                                 newr[prop.toString()] = d.toISOString();
                             }
@@ -696,13 +739,13 @@ var Kipon;
                 }
             }
             return newr;
-        }
-        assignValue(prototype, instance, prop, value) {
+        };
+        XrmService.prototype.assignValue = function (prototype, instance, prop, value) {
             if (value != null) {
                 instance[prop] = value;
                 return;
             }
-            let t = prototype[prop];
+            var t = prototype[prop];
             if (t instanceof EntityReference) {
                 instance[prop] = t.clone();
                 return;
@@ -712,19 +755,19 @@ var Kipon;
                 return;
             }
             instance[prop] = null;
-        }
-        $expandToExpand(prop) {
+        };
+        XrmService.prototype.$expandToExpand = function (prop) {
             if (prop != null) {
-                let result = new Expand();
+                var result = new Expand();
                 result.name = prop.name;
                 result.select = this.columnBuilder(prop.entity).columns;
                 return result;
             }
             return null;
-        }
-        resolveQueryResult(prototype, response, top, pages, pageIndex) {
-            let me = this;
-            let result = {
+        };
+        XrmService.prototype.resolveQueryResult = function (prototype, response, top, pages, pageIndex) {
+            var me = this;
+            var result = {
                 context: response["@odata.context"],
                 count: response["@odata.count"],
                 value: [],
@@ -735,13 +778,13 @@ var Kipon;
                 prev: null,
                 next: null
             };
-            let vals = response["value"];
-            vals.forEach(r => {
+            var vals = response["value"];
+            vals.forEach(function (r) {
                 result.value.push(me.resolve(prototype, r, prototype._updateable));
             });
-            let nextLink = response["@odata.nextLink"];
+            var nextLink = response["@odata.nextLink"];
             if (nextLink != null && nextLink != '') {
-                let start = nextLink.indexOf('/api/data/') + 15;
+                var start = nextLink.indexOf('/api/data/') + 15;
                 nextLink = nextLink.substring(start);
                 result = {
                     context: result.context,
@@ -752,31 +795,31 @@ var Kipon;
                     top: top,
                     nextLink: nextLink,
                     prev: null,
-                    next: () => {
-                        return me.http.get(nextLink, top).map(r => {
+                    next: function () {
+                        return me.http.get(nextLink, top).map(function (r) {
                             pages.push(nextLink);
-                            let pr = me.resolveQueryResult(prototype, r, top, pages, pageIndex + 1);
+                            var pr = me.resolveQueryResult(prototype, r, top, pages, pageIndex + 1);
                             return pr;
                         });
                     }
                 };
             }
             if (result.pageIndex >= 1) {
-                result.prev = () => {
-                    let lastPage = result.pages[result.pageIndex - 1];
-                    return me.http.get(lastPage, top).map(r => {
+                result.prev = function () {
+                    var lastPage = result.pages[result.pageIndex - 1];
+                    return me.http.get(lastPage, top).map(function (r) {
                         result.pages.splice(result.pages.length - 1, 1);
-                        let pr = me.resolveQueryResult(prototype, r, top, result.pages, result.pageIndex - 1);
+                        var pr = me.resolveQueryResult(prototype, r, top, result.pages, result.pageIndex - 1);
                         return pr;
                     });
                 };
             }
             return result;
-        }
-        resolve(prototype, instance, updateable) {
-            let me = this;
-            let key = prototype._pluralName + ':' + instance[prototype._keyName];
-            let result = instance;
+        };
+        XrmService.prototype.resolve = function (prototype, instance, updateable) {
+            var me = this;
+            var key = prototype._pluralName + ':' + instance[prototype._keyName];
+            var result = instance;
             if (this.context.hasOwnProperty(key)) {
                 result = this.context[key];
             }
@@ -788,14 +831,14 @@ var Kipon;
                 delete result[prototype._keyName];
             }
             result['_updateable'] = updateable;
-            for (let prop in prototype) {
+            for (var prop in prototype) {
                 if (this.ignoreColumn(prop))
                     continue;
                 if (prototype.hasOwnProperty(prop) && typeof prototype[prop] != 'function') {
-                    let done = false;
+                    var done = false;
                     if (prototype[prop] instanceof EntityReference) {
-                        let ref = new EntityReference();
-                        let id = instance["_" + prop + "_value"];
+                        var ref = new EntityReference();
+                        var id = instance["_" + prop + "_value"];
                         if (id != null && id != 'undefined') {
                             ref.id = id.toLowerCase();
                             delete result["_" + prop + "_value"];
@@ -810,14 +853,14 @@ var Kipon;
                         done = true;
                     }
                     if (!done && prototype[prop] instanceof OptionSetValue) {
-                        let opt = new OptionSetValue();
+                        var opt = new OptionSetValue();
                         opt.value = instance[prop];
                         opt.name = instance[prop + '@OData.Community.Display.V1.FormattedValue'];
                         result[prop] = opt;
                         done = true;
                     }
                     if (!done && prototype[prop] instanceof Date) {
-                        let v = instance[prop];
+                        var v = instance[prop];
                         if (v != null && v != '') {
                             result[prop] = new Date(Date.parse(v));
                         }
@@ -838,20 +881,20 @@ var Kipon;
             if (updateable) {
                 this.updateCM(prototype, result);
             }
-            let ep = this.getExpandProperty(prototype);
+            var ep = this.getExpandProperty(prototype);
             if (ep != null) {
                 if (ep.isArray) {
-                    let _v = instance[ep.name];
+                    var _v = instance[ep.name];
                     if (_v != null && Array.isArray(_v)) {
-                        let _tmp = [];
-                        _v.forEach(_r => {
-                            _tmp.push(me.resolve(ep.entity, _r, false));
+                        var _tmp_1 = [];
+                        _v.forEach(function (_r) {
+                            _tmp_1.push(me.resolve(ep.entity, _r, false));
                         });
-                        result[ep.name] = _tmp;
+                        result[ep.name] = _tmp_1;
                     }
                 }
                 else {
-                    let _v = instance[ep.name];
+                    var _v = instance[ep.name];
                     if (_v != null) {
                         result[ep.name] = this.resolve(ep.entity, _v, false);
                         result[ep.name]['_keyName'] = ep.entity._keyName;
@@ -866,22 +909,22 @@ var Kipon;
                 this.resolveAccess(prototype, instance);
             }
             return result;
-        }
-        updateCM(prototype, instance) {
-            let key = prototype._pluralName + ':' + instance['id'];
-            let change = {};
+        };
+        XrmService.prototype.updateCM = function (prototype, instance) {
+            var key = prototype._pluralName + ':' + instance['id'];
+            var change = {};
             if (this.debug) {
                 console.log('Adding to cm ' + key);
             }
             this.changemanager[key] = change;
-            for (let prop in prototype) {
+            for (var prop in prototype) {
                 if (this.ignoreColumn(prop))
                     continue;
                 if (prototype.hasOwnProperty(prop) && typeof prototype[prop] != 'function') {
-                    let v = instance[prop];
+                    var v = instance[prop];
                     if (v == null)
                         continue;
-                    let done = false;
+                    var done = false;
                     if (v instanceof EntityReference) {
                         change[prop] = v.clone();
                         done = true;
@@ -903,16 +946,16 @@ var Kipon;
             if (this.debug) {
                 console.log(change);
             }
-        }
-        columnBuilder(entity) {
-            let hasEntityReference = false;
-            let columns = entity._keyName;
+        };
+        XrmService.prototype.columnBuilder = function (entity) {
+            var hasEntityReference = false;
+            var columns = entity._keyName;
             for (var prop in entity) {
                 if (prop == entity._keyName)
                     continue;
                 if (this.ignoreColumn(prop))
                     continue;
-                let v = entity[prop];
+                var v = entity[prop];
                 if (typeof v !== 'undefined' && v != null) {
                     if (Array.isArray(v)) {
                         continue;
@@ -931,21 +974,21 @@ var Kipon;
                     }
                 }
             }
-            let result = new ColumnBuilder();
+            var result = new ColumnBuilder();
             result.hasEntityReference = hasEntityReference;
             result.columns = columns;
             return result;
-        }
-        getExpandProperty(entity) {
+        };
+        XrmService.prototype.getExpandProperty = function (entity) {
             for (var prop in entity) {
                 if (prop == entity._keyName)
                     continue;
                 if (this.ignoreColumn(prop))
                     continue;
-                let _v = entity[prop];
+                var _v = entity[prop];
                 if (Array.isArray(_v)) {
                     if (_v.length > 0) {
-                        let pt = _v[0];
+                        var pt = _v[0];
                         return {
                             name: prop,
                             entity: pt,
@@ -964,14 +1007,14 @@ var Kipon;
                 }
             }
             return null;
-        }
-        ignoreColumn(prop) {
+        };
+        XrmService.prototype.ignoreColumn = function (prop) {
             if (prop == "_pluralName" || prop == "_keyName" || prop == "id" || prop == '_updateable' || prop == '$expand' || prop == 'access') {
                 return true;
             }
             return false;
-        }
-        toGuid(v) {
+        };
+        XrmService.prototype.toGuid = function (v) {
             // 5C48BB2A-BFC0-4E56-A262-8494E0F6A8FD
             if (v == null || v == '') {
                 return v;
@@ -981,14 +1024,14 @@ var Kipon;
                 return v;
             }
             return v.substr(0, 8) + '-' + v.substr(8, 4) + '-' + v.substr(12, 4) + '-' + v.substr(16, 4) + '-' + v.substr(20);
-        }
-        expandString(expand, sep) {
+        };
+        XrmService.prototype.expandString = function (expand, sep) {
             if (expand == null || expand.name == null || expand.name == '')
                 return '';
-            let _ex = sep + '$expand=' + expand.name;
+            var _ex = sep + '$expand=' + expand.name;
             if (expand.select != null || expand.filter != null) {
                 _ex += '(';
-                let semi = '';
+                var semi = '';
                 if (expand.select != null) {
                     _ex += '$select=' + expand.select;
                     semi = ';';
@@ -999,8 +1042,9 @@ var Kipon;
                 _ex += ')';
             }
             return _ex;
-        }
-    }
+        };
+        return XrmService;
+    }());
     Kipon.XrmService = XrmService;
 })(Kipon || (Kipon = {}));
 //# sourceMappingURL=kipon.xrmservice.js.map

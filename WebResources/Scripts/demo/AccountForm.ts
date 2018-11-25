@@ -22,6 +22,7 @@ module Demo.Account {
     }
 
     export function loadForm(ctx: Xrm.Events.EventContext): void {
+        let contactPrototype: Contact = new Contact();
 
         if (ctx.getFormContext().ui.getFormType() == XrmEnum.FormType.Create) {
         }
@@ -42,7 +43,6 @@ module Demo.Account {
 
         let pk = form.getAttribute("primarycontactid").getValue();
         if (pk != null && pk.length > 0) {
-            let contactPrototype: Contact = new Contact();
 
             let s = new Kipon.XrmService();
             let condition = new Kipon.Condition();
@@ -50,12 +50,9 @@ module Demo.Account {
 
             var contacts = s.query(contactPrototype, condition).subscribe(r => {
                 contact = r.value[0];
-
-                contact.accountrolecode 
+                console.log(contact);
             });
-
         }
-
     }
 
     export function SetOptionValues(field: Xrm.Controls.OptionSetControl, vals: number[]) {

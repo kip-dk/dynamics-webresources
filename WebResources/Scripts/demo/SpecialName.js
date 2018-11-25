@@ -3,8 +3,11 @@ var Demo;
 (function (Demo) {
     var Spec;
     (function (Spec) {
-        class Some {
-        }
+        var Some = /** @class */ (function () {
+            function Some() {
+            }
+            return Some;
+        }());
         Spec.Some = Some;
         function loadForm(ctx) {
             console.log('do nothing...');

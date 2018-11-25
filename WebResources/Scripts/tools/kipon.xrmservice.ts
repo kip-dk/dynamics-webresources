@@ -231,7 +231,7 @@ module Kipon {
                 throw 'navigation property has not been set for this EntityReference instance';
             }
 
-            if (this.associatednavigationproperty.endsWith('@odata.bind')) {
+            if (this.associatednavigationproperty["endsWith"]('@odata.bind')) {
                 return this.associatednavigationproperty;
             }
             return this.associatednavigationproperty + '@odata.bind';
@@ -351,8 +351,12 @@ module Kipon {
                 }
             }
 
-            if (_f.startsWith('_') && _f.endsWith('_value') && _v != null) {
-                _v = _v.replace('{', '').replace('}', '');
+            if (_f["startsWith"]('_') && _f["endsWith"]('_value') && _v != null) {
+                _v = this.value.replace('{', '').replace('}', '');
+            }
+
+            if (_f == prototype._keyName) {
+                _v = this.value.replace('{', '').replace('}', '');
             }
 
             switch (this.operator) {
