@@ -716,7 +716,7 @@ var Kipon;
                         if (prototype[prop] instanceof EntityReference) {
                             var ref = instance[prop];
                             if (ref != null && ref.id != null) {
-                                newr[prototype[prop]['associatednavigationpropertyname']()] = '/' + prototype[prop]['pluralName'] + '(' + ref.id + ')';
+                                newr[prototype[prop]['associatednavigationpropertyname']()] = '/' + prototype[prop]['pluralName'] + '(' + ref.id.replace('{', '').replace('}', '') + ')';
                             }
                             continue;
                         }

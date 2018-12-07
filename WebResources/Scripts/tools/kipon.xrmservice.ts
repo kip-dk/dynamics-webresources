@@ -840,7 +840,7 @@ module Kipon {
                         if (prototype[prop] instanceof EntityReference) {
                             let ref = instance[prop] as EntityReference;
                             if (ref != null && ref.id != null) {
-                                newr[prototype[prop]['associatednavigationpropertyname']()] = '/' + prototype[prop]['pluralName'] + '(' + ref.id + ')';
+                                newr[prototype[prop]['associatednavigationpropertyname']()] = '/' + prototype[prop]['pluralName'] + '(' + ref.id.replace('{', '').replace('}','') + ')';
                             }
                             continue;
                         }
