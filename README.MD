@@ -38,4 +38,4 @@ WORK IN PROGRESS... last updated 2018-25-11
 
 License MIT.
 
-(c) Kipon ApS, 2018
+(c) Kipon ApS, 2018, 2019, 2020
